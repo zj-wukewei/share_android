@@ -2,6 +2,7 @@ package com.github.wkw.share.di
 
 import android.app.Application
 import android.content.Context
+import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
 import dagger.Module
 import dagger.Provides
@@ -22,16 +23,21 @@ class AppModule {
     @Provides
     @Singleton
     fun provideOkHttp(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor())
+                .addInterceptor(loggingInterceptor)
+                .addNetworkInterceptor(HeadInterceptor())
                 .connectTimeout(12, TimeUnit.SECONDS)
                 .readTimeout(12, TimeUnit.SECONDS)
                 .build()
     }
 
+    @Provides
+    @Singleton
     fun provideShareService(okHttpClient: OkHttpClient): ShareService {
         return Retrofit.Builder()
-                .baseUrl("https://localhost:8080/")
+                .baseUrl("http://192.168.8.164:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

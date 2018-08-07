@@ -1,9 +1,12 @@
 package com.github.wkw.share.di
 
+import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.github.wkw.share.ui.login.LoginViewModel
 import com.github.wkw.share.viewmodel.ShareViewModelFactory
 import dagger.Binds
 import dagger.Module
+import dagger.multibindings.IntoMap
 
 /**
  * @author GoGo on 2018/8/6.
@@ -11,10 +14,10 @@ import dagger.Module
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(RepoViewModel::class)
-//    abstract fun bindRepoViewModel(repoViewModel: RepoViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ShareViewModelFactory): ViewModelProvider.Factory

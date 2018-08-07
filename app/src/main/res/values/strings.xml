@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">share_android</string>
+    <string name="logo">Share</string>
+    <string name="login_mobile">手机号码</string>
+    <string name="login_password">密码</string>
+    <string name="login">登录</string>
+    <string name="login_forget_password">忘记密码?</string>
+    <string name="login_register">立即注册</string>
 </resources>
