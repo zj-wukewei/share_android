@@ -2,26 +2,24 @@ package com.github.wkw.share.ui.login
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import com.github.wkw.share.AppExecutors
+import com.github.wkw.share.MainActivity
 import com.github.wkw.share.R
-import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
 import com.github.wkw.share.utils.Live
 import dagger.android.AndroidInjection
-import io.reactivex.functions.Consumer
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var loginViewModel: LoginViewModel
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setFullscreen(true)
@@ -31,23 +29,22 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
                 .get(LoginViewModel::class.java)
         mBinding.vm = loginViewModel
         mBinding.presenter = this@LoginActivity
+        loginViewModel.isLoading
+                .compose(Live.bindLifecycle(this@LoginActivity))
+                .subscribeBy(onNext = {
+                    mBinding.isLoading = it
+                })
     }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_login
     }
 
-    override fun fetchData() {
-    }
-
-    override fun initView() {
-    }
-
     private fun attemptSubmit() {
         loginViewModel.login()
                 .compose(Live.bindLifecycle(this@LoginActivity))
-                .subscribe({
-                }, {
+                .subscribeBy(onNext = {
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 })
     }
 

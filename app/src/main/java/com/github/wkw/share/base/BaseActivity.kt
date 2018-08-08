@@ -13,15 +13,10 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        initView()
-        fetchData()
     }
 
     abstract fun getLayoutId(): Int
 
-    abstract fun fetchData()
-
-    abstract fun initView()
 
     protected fun setFullscreen(fullscreen: Boolean) {
         val window = window

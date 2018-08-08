@@ -14,12 +14,9 @@ class RepositoryUtils {
         fun <T> handleResult(): ObservableTransformer<ShareResponse<T>, T> {
             return ObservableTransformer {
                 it.flatMap {
-                    if (it == null) {
-                        Observable.error(NetworkConnectionException())
-                    } else if (it.code == SUCCESS_CODE) {
-                        createData(it.data)
-                    } else {
-                        Observable.error<T>(ResponseException(it))
+                    when (SUCCESS_CODE) {
+                        it.code -> createData(it.data)
+                        else -> Observable.error<T>(ResponseException(it))
                     }
                 }
             }

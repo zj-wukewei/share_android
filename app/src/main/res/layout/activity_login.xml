@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
             name="vm"
             type="com.github.wkw.share.ui.login.LoginViewModel" />
 
@@ -96,8 +100,10 @@
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/login_button_background"
+            android:enabled="@{!isLoading}"
             android:onClick="@{(v)->presenter.onClick(v)}"
-            android:text="@string/login"
+            android:text="@{isLoading ? @string/login_loading : @string/login}"
+
             android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@id/tv_login_forget_password" />
 

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_padding">65dp</dimen>
+    <dimen name="nav_header_padding">16dp</dimen>
+    <dimen name="nav_avatar">64dp</dimen>
 </resources>

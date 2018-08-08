@@ -1,9 +1,22 @@
 <resources>
-    <string name="app_name">share_android</string>
+    <string name="app_name">Share</string>
     <string name="logo">Share</string>
     <string name="login_mobile">手机号码</string>
     <string name="login_password">密码</string>
     <string name="login">登录</string>
+    <string name="login_loading">登录中…</string>
     <string name="login_forget_password">忘记密码?</string>
     <string name="login_register">立即注册</string>
+    <string name="server_error">服务器异常…</string>
+    <string name="network_error">网络异常…</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="personal_info">个人资料</string>
+    <string name="follow">关注</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+
+
+
 </resources>

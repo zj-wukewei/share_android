@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_nav_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_header_bg"
+            android:padding="@dimen/nav_header_padding">
+
+            <ImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="@dimen/nav_avatar"
+                android:layout_height="@dimen/nav_avatar"
+                android:scaleType="fitCenter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_default_avatar" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_avatar"
+                tools:text="吴帅气" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/nav_text"
+            android:drawableStart="@drawable/ic_home"
+            android:text="@string/personal_info"
+            app:layout_constraintTop_toBottomOf="@id/cl_nav_header" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_nav_info"
+            style="@style/nav_text"
+            android:drawableStart="@drawable/ic_home"
+            android:text="@string/personal_info"
+            app:layout_constraintTop_toBottomOf="@id/cl_nav_header" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_nav_follow"
+            style="@style/nav_text"
+            android:drawableStart="@drawable/ic_home"
+            android:text="@string/follow"
+            app:layout_constraintTop_toBottomOf="@id/tv_nav_info" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_nav_setting"
+            style="@style/nav_text"
+            android:drawableStart="@drawable/ic_home"
+            android:text="@string/setting"
+            app:layout_constraintTop_toBottomOf="@id/tv_nav_follow" />
+
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_nav_about"
+            style="@style/nav_text"
+            android:drawableStart="@drawable/ic_home"
+            android:text="@string/about"
+            app:layout_constraintTop_toBottomOf="@id/tv_nav_setting" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

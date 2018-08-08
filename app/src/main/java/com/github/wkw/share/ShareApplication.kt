@@ -2,9 +2,14 @@ package com.github.wkw.share;
 
 import android.app.Activity
 import android.app.Application
+import com.github.wkw.share.api.exception.NetworkConnectionException
+import com.github.wkw.share.api.exception.ResponseException
 import com.github.wkw.share.di.DaggerAppComponent
+import com.github.wkw.share.extens.toast
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import io.reactivex.plugins.RxJavaPlugins
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,6 +27,18 @@ class ShareApplication : Application(), HasActivityInjector {
                 .application(this)
                 .build()
                 .inject(this)
+        BuildConfig.DEBUG.let { Timber.plant(Timber.DebugTree()) }
+        initRxJavaError()
+    }
+
+    private fun initRxJavaError() {
+        RxJavaPlugins.setErrorHandler {
+            when (it.cause) {
+                is NetworkConnectionException -> toast(getString(R.string.network_error))
+                is ResponseException -> toast(it.message!!)
+                else -> toast(getString(R.string.server_error))
+            }
+        }
     }
 
     override fun activityInjector() = dispatchingAndroidInjector
