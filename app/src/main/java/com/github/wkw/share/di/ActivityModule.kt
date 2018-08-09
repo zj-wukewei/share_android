@@ -1,5 +1,6 @@
 package com.github.wkw.share.di
 
+import com.github.wkw.share.MainActivity
 import com.github.wkw.share.ui.login.LoginActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -9,4 +10,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun provideLoginActivity(): LoginActivity
+
+    @ContributesAndroidInjector(modules = [FragmentMainModule::class])
+    abstract fun contributeMainActivity(): MainActivity
 }

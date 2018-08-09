@@ -27,8 +27,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         super.onCreate(savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LoginViewModel::class.java)
-        mBinding.vm = loginViewModel
-        mBinding.presenter = this@LoginActivity
+        mBinding.run {
+            vm = loginViewModel
+            presenter = this@LoginActivity
+        }
         loginViewModel.isLoading
                 .compose(Live.bindLifecycle(this@LoginActivity))
                 .subscribeBy(onNext = {

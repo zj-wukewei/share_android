@@ -6,20 +6,28 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 open class AppExecutors(
+        private val diskIO: Executor,
         val networkIO: Scheduler,
         val mainThread: Scheduler
 ) {
 
     @Inject
     constructor() : this(
+            Executors.newSingleThreadExecutor(),
             Schedulers.io(),
             AndroidSchedulers.mainThread()
     )
+
+    fun diskIO(): Executor {
+        return diskIO
+    }
 
     fun <T> ioMainScheduler(): IoMainScheduler<T> {
         return IoMainScheduler(this@AppExecutors)
