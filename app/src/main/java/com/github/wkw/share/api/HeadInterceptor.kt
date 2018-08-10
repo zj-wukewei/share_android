@@ -1,15 +1,13 @@
 package com.github.wkw.share.api
 
+import android.os.Build
+import com.github.wkw.share.BuildConfig
+import com.github.wkw.share.UserManager
 import okhttp3.Interceptor
 import okhttp3.Response
-import android.icu.util.ULocale.getLanguage
-import android.R.attr.versionCode
-import android.os.Build
-import android.provider.UserDictionary.Words.APP_ID
-import com.github.wkw.share.BuildConfig
 
 
-class HeadInterceptor : Interceptor {
+class HeadInterceptor(private val userManager: UserManager) : Interceptor {
 
     private val TAG = "HeadInterceptor"
 
@@ -27,7 +25,7 @@ class HeadInterceptor : Interceptor {
         val original = chain!!.request()
         val request = original.newBuilder()
                 .method(original.method(), original.body())
-                .addHeader(TOKEN, "")
+                .addHeader(TOKEN, userManager.token)
                 .addHeader(APP_ID, "2")
                 .addHeader(APP_VERSION, BuildConfig.VERSION_CODE.toString())
                 .addHeader(APP_MODEL, Build.MODEL)

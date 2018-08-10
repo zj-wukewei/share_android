@@ -35,7 +35,7 @@ class ShareApplication : Application(), HasActivityInjector {
         RxJavaPlugins.setErrorHandler {
             when (it.cause) {
                 is NetworkConnectionException -> toast(getString(R.string.network_error))
-                is ResponseException -> toast(it.message!!)
+                is ResponseException -> it.message?.let { it1 -> toast(it1) }
                 else -> toast(getString(R.string.server_error))
             }
         }

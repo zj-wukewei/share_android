@@ -1,3 +1,13 @@
 package com.github.wkw.share.vo
 
-data class Feed(val id: Int, val content: String?, val images: String?)
+data class Feed(val id: Int,
+                val userId: String,
+                val content: String,
+                val video: String?,
+                val likeCount: Int = 0,
+                val viewCount: Int = 0,
+                val tagId: Int?,
+                val categoryId: Int?,
+                val userName: String?,
+                val userAvatar: String?,
+                val images: String?)

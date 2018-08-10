@@ -2,6 +2,7 @@ package com.github.wkw.share.di
 
 import android.app.Application
 import android.content.Context
+import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
 import dagger.Module
@@ -22,12 +23,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttp(): OkHttpClient {
+    fun provideOkHttp(userManager: UserManager): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
+                .addNetworkInterceptor(HeadInterceptor(userManager))
                 .addInterceptor(loggingInterceptor)
-                .addNetworkInterceptor(HeadInterceptor())
                 .connectTimeout(12, TimeUnit.SECONDS)
                 .readTimeout(12, TimeUnit.SECONDS)
                 .build()
@@ -49,6 +50,13 @@ class AppModule {
     @Provides
     fun provideContext(app: Application): Context {
         return app
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideUserManager(app: Application): UserManager {
+        return UserManager(app.applicationContext)
     }
 
 

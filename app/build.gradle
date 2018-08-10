@@ -45,10 +45,9 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
-
-
     implementation "com.google.dagger:dagger:$daggerVersions"
     implementation "com.google.dagger:dagger-android:$daggerVersions"
     implementation "com.google.dagger:dagger-android-support:$daggerVersions"
@@ -60,7 +59,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-
+    kapt "com.android.databinding:compiler:3.1.4"
     implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
 
     implementation "com.github.bumptech.glide:glide:${glideVersion}"

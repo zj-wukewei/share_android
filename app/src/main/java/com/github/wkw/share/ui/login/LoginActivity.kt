@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.github.wkw.share.MainActivity
 import com.github.wkw.share.R
+import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
 import com.github.wkw.share.utils.Live
@@ -21,10 +22,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
 
     private lateinit var loginViewModel: LoginViewModel
 
+    @Inject
+    lateinit var userManager: UserManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setFullscreen(true)
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        if (userManager.token.isNotEmpty()) {
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
+        }
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LoginViewModel::class.java)
         mBinding.run {
@@ -47,6 +55,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
                 .compose(Live.bindLifecycle(this@LoginActivity))
                 .subscribeBy(onNext = {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
                 })
     }
 

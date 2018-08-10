@@ -10,6 +10,7 @@
     <color name="text_forget_password">#007AFF</color>
     <color name="tab_select_text">#FFBF00</color>
     <color name="tab_un_select_text">#C1BEB7</color>
+    <color name="home_item_divider_color">#f4f4f4</color>
 </resources>
 
 
