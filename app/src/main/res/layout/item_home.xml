@@ -25,7 +25,7 @@
             android:id="@+id/img_item_home"
             android:layout_width="@dimen/avatar_default"
             android:layout_height="@dimen/avatar_default"
-            android:layout_marginLeft="@dimen/nav_header_padding"
+            android:layout_marginStart="@dimen/nav_header_padding"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_default_avatar"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +35,7 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@{item.userName}"
             android:textColor="@color/app_title"
             android:textSize="16sp"
@@ -71,52 +71,90 @@
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/img_home_content" />
 
-
-        <TextView
-            android:id="@+id/tv_home_like"
+        <LinearLayout
+            android:id="@+id/ly_home_like"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="11111"
-            android:textColor="@color/app_title"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_home_comment"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_content" />
+            app:layout_constraintRight_toLeftOf="@+id/llyt_home_comment"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_like" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_home_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@{`` + item.likeCount}"
+                android:textColor="@color/app_title"
+
+                />
+        </LinearLayout>
 
 
         <View
             style="@style/v_home_line"
-            app:layout_constraintBottom_toBottomOf="@id/tv_home_like"
-            app:layout_constraintRight_toRightOf="@id/tv_home_like"
-            app:layout_constraintTop_toTopOf="@id/tv_home_like" />
+            app:layout_constraintBottom_toBottomOf="@id/ly_home_like"
+            app:layout_constraintRight_toRightOf="@id/ly_home_like"
+            app:layout_constraintTop_toTopOf="@id/ly_home_like" />
 
-        <TextView
-            android:id="@+id/tv_home_comment"
+        <LinearLayout
+            android:id="@+id/llyt_home_comment"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="222"
-            android:textColor="@color/app_title"
-            app:layout_constraintLeft_toRightOf="@id/tv_home_like"
-            app:layout_constraintRight_toLeftOf="@+id/tv_home_share"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_content" />
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@id/ly_home_like"
+            app:layout_constraintRight_toLeftOf="@+id/llyt_home_share"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_comment" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_home_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@string/comment"
+                android:textColor="@color/app_title" />
+        </LinearLayout>
+
 
         <View
             style="@style/v_home_line"
-            app:layout_constraintBottom_toBottomOf="@id/tv_home_comment"
-            app:layout_constraintRight_toRightOf="@id/tv_home_comment"
-            app:layout_constraintTop_toTopOf="@id/tv_home_comment" />
+            app:layout_constraintBottom_toBottomOf="@id/llyt_home_comment"
+            app:layout_constraintRight_toRightOf="@id/llyt_home_comment"
+            app:layout_constraintTop_toTopOf="@id/llyt_home_comment" />
 
-        <TextView
-            android:id="@+id/tv_home_share"
+        <LinearLayout
+            android:id="@+id/llyt_home_share"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="3333"
-            android:textColor="@color/app_title"
-            app:layout_constraintLeft_toRightOf="@id/tv_home_comment"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@id/llyt_home_comment"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_content" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_home_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/ic_share" />
+        </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 

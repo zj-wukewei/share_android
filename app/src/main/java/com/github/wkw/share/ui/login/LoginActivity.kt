@@ -1,5 +1,6 @@
 package com.github.wkw.share.ui.login
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -10,7 +11,9 @@ import com.github.wkw.share.R
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
+import com.github.wkw.share.extens.navigateToActivity
 import com.github.wkw.share.utils.Live
+import com.github.wkw.share.vo.Status
 import dagger.android.AndroidInjection
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
@@ -30,7 +33,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         if (userManager.token.isNotEmpty()) {
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            navigateToActivity(MainActivity::class.java)
             finish()
         }
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
@@ -38,12 +41,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         mBinding.run {
             vm = loginViewModel
             presenter = this@LoginActivity
+            setLifecycleOwner(this@LoginActivity)
         }
-        loginViewModel.isLoading
-                .compose(Live.bindLifecycle(this@LoginActivity))
-                .subscribeBy(onNext = {
-                    mBinding.isLoading = it
-                })
     }
 
     override fun getLayoutId(): Int {
@@ -52,10 +51,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
 
     private fun attemptSubmit() {
         loginViewModel.login()
-                .compose(Live.bindLifecycle(this@LoginActivity))
-                .subscribeBy(onNext = {
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
+                .observe(this, Observer { result ->
+                    mBinding.isLoading = result?.status == Status.LOADING
+                    if (result?.status == Status.SUCCESS) {
+                        navigateToActivity(MainActivity::class.java)
+                        finish()
+                    }
                 })
     }
 

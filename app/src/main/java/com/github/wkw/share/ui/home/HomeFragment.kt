@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
@@ -13,11 +12,9 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.FragmentHomeBinding
-import com.github.wkw.share.extens.getCompatColor
-import com.github.wkw.share.ui.login.LoginViewModel
 import com.github.wkw.share.utils.Live
-import com.github.wkw.share.utils.RecycleViewDivider
 import com.github.wkw.share.vo.Feed
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
@@ -75,7 +72,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemClickPresenter<Fee
         mBinding.fragmentList.recyclerView.run {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(RecycleViewDivider(context, LinearLayout.VERTICAL, 10, context.getCompatColor(R.color.home_item_divider_color)))
+            addItemDecoration(
+                    HorizontalDividerItemDecoration.Builder(context)
+                            .colorResId(R.color.home_item_divider_color)
+                            .sizeResId(R.dimen.home_divider_height)
+                            .build()
+            )
         }
     }
 }
