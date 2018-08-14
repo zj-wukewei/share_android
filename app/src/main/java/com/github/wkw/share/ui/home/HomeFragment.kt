@@ -6,12 +6,10 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.LinearLayout
 import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.R
-import com.github.wkw.share.base.BaseFragment
+import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
-import com.github.wkw.share.databinding.FragmentHomeBinding
 import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Feed
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
@@ -19,7 +17,7 @@ import dagger.android.support.AndroidSupportInjection
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemClickPresenter<Feed> {
+class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
 
     companion object {
@@ -42,22 +40,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemClickPresenter<Fee
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
-
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_home
+    override fun loadData() {
+        homeViewModel.feeds("")
+                .compose(Live.bindLifecycle(this))
+                .subscribeBy(onNext = {
+                    if (it.hasMore) mBinding.recyclerView.setPullToLoad() else mBinding.recyclerView.setEnd()
+                    mAdapter.submitList(it.list)
+                })
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeViewModel::class.java)
-        homeViewModel.feeds("")
-                .compose(Live.bindLifecycle(this))
-                .subscribeBy(onNext = {
-                    mAdapter.submitList(it.list)
-                })
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,11 +64,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemClickPresenter<Fee
         initView()
     }
 
+
     override fun onItemClick(v: View?, item: Feed) {
     }
 
     private fun initView() {
-        mBinding.fragmentList.recyclerView.run {
+        mBinding.run {
+            vm = homeViewModel
+            setLifecycleOwner(this@HomeFragment)
+        }
+        mBinding.recyclerView.run {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(
@@ -78,6 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ItemClickPresenter<Fee
                             .sizeResId(R.dimen.home_divider_height)
                             .build()
             )
+            setEnd()
         }
     }
 }

@@ -3,19 +3,16 @@ package com.github.wkw.share.ui.login
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.github.wkw.share.MainActivity
+import com.github.wkw.share.ui.main.MainActivity
 import com.github.wkw.share.R
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
 import com.github.wkw.share.extens.navigateToActivity
-import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Status
 import dagger.android.AndroidInjection
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {

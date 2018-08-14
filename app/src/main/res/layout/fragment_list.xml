@@ -4,14 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.github.wkw.share.ui.page.PageViewModel" />
+    </data>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sw_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:onRefresh="@{vm}"
+        app:refreshing="@{vm.isRefreshing}">
 
         <com.github.wkw.share.widget.loadmore.RecyclerViewWithFooter
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:loadMore="@{vm}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

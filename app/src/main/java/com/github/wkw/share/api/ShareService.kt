@@ -5,8 +5,10 @@ import com.github.wkw.share.api.reponse.ListDataEntity
 import com.github.wkw.share.api.request.AbstractQry
 import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.vo.Feed
+import com.github.wkw.share.vo.UserInfo
 import io.reactivex.Observable
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -19,4 +21,7 @@ interface ShareService {
 
     @POST("feed/list")
     fun feeds(@Body qry: AbstractQry): Observable<ShareResponse<ListDataEntity<Feed>>>
+
+    @GET("user/info")
+    fun userInfo(): Observable<ShareResponse<UserInfo>>
 }

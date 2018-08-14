@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="userInfo"
+            type="com.github.wkw.share.vo.UserInfo" />
+    </data>
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -13,7 +20,7 @@
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MainActivity">
+            tools:context=".ui.main.MainActivity">
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
@@ -54,12 +61,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             app:itemIconTint="@color/colorPrimary"
             app:itemTextColor="@color/colorPrimary">
 
 
-            <include layout="@layout/nav_header_main"/>
+            <include
+                layout="@layout/nav_header_main"
+                app:userInfo="@{userInfo}" />
 
         </android.support.design.widget.NavigationView>
 

@@ -8,8 +8,6 @@ import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.extens.asLiveData
 import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.vo.Resource
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val userRepository: UserRepository, private val userManager: UserManager) : ViewModel() {
