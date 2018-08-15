@@ -18,7 +18,7 @@
         app:onRefresh="@{vm}"
         app:refreshing="@{vm.isRefreshing}">
 
-        <com.github.wkw.share.widget.loadmore.RecyclerViewWithFooter
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

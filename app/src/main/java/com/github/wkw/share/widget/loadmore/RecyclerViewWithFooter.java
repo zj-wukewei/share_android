@@ -268,7 +268,7 @@ public class RecyclerViewWithFooter extends RecyclerView {
         }
     }
 
-    public void setFailure(OnClickListener listener) {
+    public void setFailure(View.OnClickListener listener) {
         if(getAdapter() != null) {
             mIsGettingData = false;
             mState = STATE_FAILURE;
@@ -499,4 +499,5 @@ public class RecyclerViewWithFooter extends RecyclerView {
             }
         }
     }
+
 }

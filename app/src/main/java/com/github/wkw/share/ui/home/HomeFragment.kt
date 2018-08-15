@@ -1,5 +1,6 @@
 package com.github.wkw.share.ui.home
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -15,6 +16,7 @@ import com.github.wkw.share.vo.Feed
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
@@ -43,12 +45,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
     }
 
     override fun loadData() {
-        homeViewModel.feeds("")
-                .compose(Live.bindLifecycle(this))
-                .subscribeBy(onNext = {
-                    if (it.hasMore) mBinding.recyclerView.setPullToLoad() else mBinding.recyclerView.setEnd()
-                    mAdapter.submitList(it.list)
-                })
+        homeViewModel.onSwipeRefresh()
     }
 
 
@@ -56,12 +53,15 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeViewModel::class.java)
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
+        homeViewModel.responseResult.observe(this, Observer {
+            Timber.d(it.toString())
+            mAdapter.submitList(it)
+        })
     }
 
 
@@ -75,14 +75,12 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         }
         mBinding.recyclerView.run {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(context)
             addItemDecoration(
                     HorizontalDividerItemDecoration.Builder(context)
                             .colorResId(R.color.home_item_divider_color)
                             .sizeResId(R.dimen.home_divider_height)
                             .build()
             )
-            setEnd()
         }
     }
 }

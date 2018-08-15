@@ -1,5 +1,7 @@
 package com.github.wkw.share.extens
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
 import io.reactivex.*
 import io.reactivex.disposables.Disposable
 import io.reactivex.exceptions.OnErrorNotImplementedException
@@ -19,3 +21,9 @@ fun <T : Any> Observable<T>.subscribeShareBy(
         onComplete: () -> Unit = onCompleteStub,
         onNext: (T) -> Unit = onNextStub
 ): Disposable = subscribe(onNext, onError, onComplete)
+
+
+
+fun <X, Y> LiveData<X>.map(body: (X) -> Y): LiveData<Y> {
+    return Transformations.map(this, body)
+}

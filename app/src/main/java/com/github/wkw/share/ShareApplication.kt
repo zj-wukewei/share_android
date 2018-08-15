@@ -10,6 +10,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
+import java.net.ConnectException
 import javax.inject.Inject
 
 /**
@@ -27,13 +28,14 @@ class ShareApplication : Application(), HasActivityInjector {
                 .application(this)
                 .build()
                 .inject(this)
-        BuildConfig.DEBUG.let { Timber.plant(Timber.DebugTree()) }
+        Timber.plant(Timber.DebugTree())
         initRxJavaError()
     }
 
     private fun initRxJavaError() {
         RxJavaPlugins.setErrorHandler {
             when (it.cause) {
+                is ConnectException -> toast(getString(R.string.network_error))
                 is NetworkConnectionException -> toast(getString(R.string.network_error))
                 is ResponseException -> it.message?.let { it1 -> toast(it1) }
                 else -> toast(getString(R.string.server_error))
