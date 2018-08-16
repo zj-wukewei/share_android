@@ -16,7 +16,6 @@ fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel) {
 
 @BindingAdapter(value = "loadMore")
 fun bind(recyclerView: RecyclerView, pageViewModel: PageViewModel) {
-    recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
     recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)

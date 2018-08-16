@@ -3,6 +3,7 @@ package com.github.wkw.share.api
 import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.reponse.ListDataEntity
 import com.github.wkw.share.api.request.AbstractQry
+import com.github.wkw.share.api.request.FeedQry
 import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.vo.Feed
 import com.github.wkw.share.vo.UserInfo
@@ -20,7 +21,7 @@ interface ShareService {
 
 
     @POST("feed/list")
-    fun feeds(@Body qry: AbstractQry): Observable<ShareResponse<ListDataEntity<Feed>>>
+    fun feeds(@Body qry: FeedQry): Observable<ShareResponse<ListDataEntity<Feed>>>
 
     @GET("user/info")
     fun userInfo(): Observable<ShareResponse<UserInfo>>

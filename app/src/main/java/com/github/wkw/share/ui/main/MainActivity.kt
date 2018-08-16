@@ -49,7 +49,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     private fun initView() {
         pagerAdapter = object : AbstractPagerAdapter(supportFragmentManager, arrayOf("主页", "热门", "社区")) {
             override fun getItem(pos: Int): Fragment? {
-                list[pos] = HomeFragment.newInstance()
+                when (pos) {
+                    0 -> list[pos] = HomeFragment.newInstance(HomeFragment.HOME)
+                    1 -> list[pos] = HomeFragment.newInstance(HomeFragment.HOT)
+                    2 -> list[pos] = HomeFragment.newInstance(HomeFragment.COMMUNITY)
+                }
                 return list[pos]
             }
         }

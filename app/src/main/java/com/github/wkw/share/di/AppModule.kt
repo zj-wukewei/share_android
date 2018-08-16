@@ -38,7 +38,7 @@ class AppModule {
     @Singleton
     fun provideShareService(okHttpClient: OkHttpClient): ShareService {
         return Retrofit.Builder()
-                .baseUrl("http://192.168.8.164:8080/")
+                .baseUrl("http://192.168.8.127:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -9,6 +9,8 @@
     <string name="login_register">立即注册</string>
     <string name="server_error">服务器异常…</string>
     <string name="network_error">网络异常…</string>
+    <string name="list_status_empty">暂无数据</string>
+    <string name="list_status_error">异常..</string>
 
 
 
