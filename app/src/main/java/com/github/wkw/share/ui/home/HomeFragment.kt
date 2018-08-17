@@ -59,6 +59,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
         super.onCreate(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeViewModel::class.java)
@@ -77,6 +78,22 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
 
     override fun onItemClick(v: View?, item: Feed) {
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        Timber.d("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy")
     }
 
     private fun initView() {

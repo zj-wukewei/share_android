@@ -2,7 +2,7 @@ package com.github.wkw.share
 
 import android.content.Context
 import com.github.wkw.share.api.reponse.UserEntity
-import com.github.wkw.share.extens.mySharedPreferences
+import com.github.wkw.share.ui.extens.mySharedPreferences
 
 
 class UserManager constructor(val context: Context) {

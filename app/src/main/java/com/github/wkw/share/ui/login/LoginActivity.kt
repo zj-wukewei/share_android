@@ -10,7 +10,8 @@ import com.github.wkw.share.R
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
-import com.github.wkw.share.extens.navigateToActivity
+import com.github.wkw.share.ui.extens.navigateToActivity
+import com.github.wkw.share.ui.extens.observeBy
 import com.github.wkw.share.vo.Status
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -48,13 +49,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
 
     private fun attemptSubmit() {
         loginViewModel.login()
-                .observe(this, Observer { result ->
-                    mBinding.isLoading = result?.status == Status.LOADING
-                    if (result?.status == Status.SUCCESS) {
-                        navigateToActivity(MainActivity::class.java)
-                        finish()
-                    }
-                })
+                .observeBy(this,
+                        onLoading = {
+                            mBinding.isLoading = it
+                        },
+                        onSuccess = {
+                            navigateToActivity(MainActivity::class.java)
+                            finish()
+                        })
     }
 
     override fun onClick(v: View?) {

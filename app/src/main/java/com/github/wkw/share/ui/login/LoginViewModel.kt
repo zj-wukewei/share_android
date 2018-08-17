@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.LoginRequest
-import com.github.wkw.share.extens.asLiveData
+import com.github.wkw.share.ui.extens.asResourceLiveData
 import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.vo.Resource
 import javax.inject.Inject
@@ -15,6 +15,6 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
     fun login(): LiveData<Resource<UserEntity>> {
         return userRepository.login(loginRequest)
                 .doOnNext { userManager.setUserEntity(it) }
-                .asLiveData()
+                .asResourceLiveData()
     }
 }

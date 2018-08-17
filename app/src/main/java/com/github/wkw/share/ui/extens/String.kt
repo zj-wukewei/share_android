@@ -1,4 +1,4 @@
-package com.github.wkw.share.extens
+package com.github.wkw.share.ui.extens
 
 import android.text.TextUtils
 

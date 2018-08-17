@@ -5,6 +5,7 @@ import android.content.Context
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -37,9 +38,11 @@ class AppModule {
     @Provides
     @Singleton
     fun provideShareService(okHttpClient: OkHttpClient): ShareService {
+        val gson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         return Retrofit.Builder()
                 .baseUrl("http://192.168.8.127:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
