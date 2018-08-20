@@ -41,6 +41,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
             presenter = this@LoginActivity
             setLifecycleOwner(this@LoginActivity)
         }
+        loginViewModel.loginSuccess.observe(this, Observer {
+            it.let {
+                navigateToActivity(MainActivity::class.java)
+                finish()
+            }
+        })
     }
 
     override fun getLayoutId(): Int {
@@ -49,14 +55,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
 
     private fun attemptSubmit() {
         loginViewModel.login()
-                .observeBy(this,
-                        onLoading = {
-                            mBinding.isLoading = it
-                        },
-                        onSuccess = {
-                            navigateToActivity(MainActivity::class.java)
-                            finish()
-                        })
     }
 
     override fun onClick(v: View?) {

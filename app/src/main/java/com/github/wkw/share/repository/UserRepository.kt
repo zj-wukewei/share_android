@@ -14,14 +14,7 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(private val shareService: ShareService, private val appExecutors: AppExecutors) {
 
     fun login(loginRequest: LoginRequest): Observable<UserEntity> {
-        return Observable.just(loginRequest)
-                .flatMap {
-                    val mdLogin = LoginRequest()
-                    mdLogin.mobile = loginRequest.mobile
-                    mdLogin.password = encode(loginRequest.password)
-                    Observable.just(mdLogin)
-                }
-                .flatMap { shareService.login(it) }
+        return shareService.login(loginRequest)
                 .compose(appExecutors.ioMainScheduler())
                 .compose(RepositoryUtils.handleResult())
     }

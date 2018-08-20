@@ -3,7 +3,10 @@ package com.github.wkw.share.utils
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-fun encode(text: String): String {
+fun encode(text: String?): String {
+    if (text == null) {
+        return ""
+    }
     try {
         //获取md5加密对象
         val instance: MessageDigest = MessageDigest.getInstance("MD5")

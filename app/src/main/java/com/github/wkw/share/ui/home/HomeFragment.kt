@@ -12,6 +12,8 @@ import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
+import com.github.wkw.share.ui.extens.navigateToActivity
+import com.github.wkw.share.ui.login.LoginActivity
 import com.github.wkw.share.vo.Feed
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
