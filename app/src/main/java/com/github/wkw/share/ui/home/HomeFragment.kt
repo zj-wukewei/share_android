@@ -72,9 +72,11 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
-        homeViewModel.responseResult.observe(this, Observer {
-            Timber.d(it.toString())
-            mAdapter.submitList(it)
+        homeViewModel.results.observe(this, Observer { it ->
+            it?.let {
+                Timber.d(it.toString())
+                mAdapter.submitList(it)
+            }
         })
     }
 

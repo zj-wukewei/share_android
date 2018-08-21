@@ -15,12 +15,12 @@ import com.github.wkw.share.ui.page.PageViewModel
 import timber.log.Timber
 
 @BindingAdapter(value = "onRefresh")
-fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel) {
+fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel<*, Any>) {
     v.setOnRefreshListener { pageViewModel.onSwipeRefresh() }
 }
 
 @BindingAdapter(value = "loadMore")
-fun bind(recyclerView: RecyclerView, pageViewModel: PageViewModel) {
+fun bind(recyclerView: RecyclerView, pageViewModel: PageViewModel<*, Any>) {
     recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -38,7 +38,7 @@ fun bind(recyclerView: RecyclerView, pageViewModel: PageViewModel) {
 }
 
 @BindingAdapter(value = ["url", "placeholder"], requireAll = false)
-fun loadImageUrl(imageView: ImageView, imageUri: String?,  placeholder: Drawable?) {
+fun loadImageUrl(imageView: ImageView, imageUri: String?, placeholder: Drawable?) {
     val placeholderDrawable = placeholder ?: AppCompatResources.getDrawable(
             imageView.context, R.drawable.generic_placeholder
     )

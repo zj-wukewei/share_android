@@ -4,8 +4,13 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
+import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Resource
 import com.github.wkw.share.vo.Status
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.android.MainThreadDisposable
 import io.reactivex.exceptions.OnErrorNotImplementedException
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -42,3 +47,34 @@ fun <T : Any> LiveData<Resource<T>>.observeBy(owner: LifecycleOwner,
 fun <X, Y> LiveData<X>.map(body: (X) -> Y): LiveData<Y> {
     return Transformations.map(this, body)
 }
+
+fun <T> LiveData<T>.toFlowable(): Flowable<T> =
+        Flowable.create({ emitter ->
+            val observer = Observer<T> {
+                it?.let { emitter.onNext(it) }
+            }
+            observeForever(observer)
+
+            emitter.setCancellable {
+                object : MainThreadDisposable() {
+                    override fun onDispose() = removeObserver(observer)
+                }
+            }
+
+        }, BackpressureStrategy.LATEST)
+
+
+fun <T> LiveData<T>.toObservable(): Observable<T> =
+        Observable.create { emitter ->
+            val observer = Observer<T> { it ->
+                it?.let { emitter.onNext(it) }
+            }
+            observeForever(observer)
+
+            emitter.setCancellable {
+                object : MainThreadDisposable() {
+                    override fun onDispose() = removeObserver(observer)
+                }
+            }
+
+        }

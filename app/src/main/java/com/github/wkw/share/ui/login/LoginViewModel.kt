@@ -1,9 +1,7 @@
 package com.github.wkw.share.ui.login
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.github.wkw.share.UserManager
-import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.utils.encode
@@ -22,7 +20,9 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
         userRepository.login(LoginRequest(mobile = mobile.value, password = encode(password.value)))
                 .doOnSubscribe { isLoading.postValue(true) }
                 .doFinally { isLoading.postValue(false) }
-                .doOnNext { userManager.setUserEntity(it) }
+                .doOnNext {
+                    userManager.setUserEntity(it)
+                }
                 .subscribeBy(onNext = {
                     loginSuccess.postValue(true)
                 })

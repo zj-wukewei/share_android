@@ -4,16 +4,17 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.View
-import com.github.wkw.share.ui.main.MainActivity
+import android.widget.Toast
 import com.github.wkw.share.R
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
 import com.github.wkw.share.ui.extens.navigateToActivity
-import com.github.wkw.share.ui.extens.observeBy
-import com.github.wkw.share.vo.Status
+import com.github.wkw.share.ui.main.MainActivity
 import dagger.android.AndroidInjection
+import timber.log.Timber
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
@@ -41,7 +42,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
             presenter = this@LoginActivity
             setLifecycleOwner(this@LoginActivity)
         }
-        loginViewModel.loginSuccess.observe(this, Observer {
+        loginViewModel.loginSuccess.observe(this, Observer { it ->
             it.let {
                 navigateToActivity(MainActivity::class.java)
                 finish()

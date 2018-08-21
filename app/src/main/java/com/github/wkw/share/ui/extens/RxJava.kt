@@ -5,8 +5,6 @@ import com.github.wkw.share.utils.RxJavaToLiveDataConvert.fromObservable
 import com.github.wkw.share.utils.RxJavaToLiveDataConvert.fromObservableResource
 import com.github.wkw.share.vo.Resource
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 inline fun <T> Observable<T>.asResourceLiveData(): LiveData<Resource<T>> = fromObservableResource(this)
 inline fun <T> Observable<T>.asLiveData(): LiveData<T> = fromObservable(this)

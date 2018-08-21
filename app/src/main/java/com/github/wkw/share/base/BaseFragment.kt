@@ -12,6 +12,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     protected lateinit var mBinding: VB
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false)
+        mBinding.setLifecycleOwner(this)
         return mBinding.root
     }
 
