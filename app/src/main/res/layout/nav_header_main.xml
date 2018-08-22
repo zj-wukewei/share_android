@@ -8,6 +8,10 @@
     <data>
 
         <variable
+            name="presenter"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="userInfo"
             type="com.github.wkw.share.vo.UserInfo" />
     </data>
@@ -68,6 +72,7 @@
             android:id="@+id/tv_nav_follow"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
+            android:onClick="@{(v)->presenter.onClick(v)}"
             android:text="@string/follow"
             app:layout_constraintTop_toBottomOf="@id/tv_nav_info" />
 

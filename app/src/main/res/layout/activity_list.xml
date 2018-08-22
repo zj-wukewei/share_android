@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.github.wkw.share.ui.page.PageViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_item_divider_color"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/include_tool_bar" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/home_item_divider_color"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/sw_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:onRefresh="@{vm}"
+                app:refreshing="@{vm.isRefreshing}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:loadMore="@{vm}" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <include
+                layout="@layout/list_status"
+                app:vm="@{vm}" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</layout>

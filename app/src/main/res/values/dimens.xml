@@ -2,7 +2,9 @@
 <resources>
     <dimen name="login_padding">65dp</dimen>
     <dimen name="nav_header_padding">16dp</dimen>
+    <dimen name="toolbar_height">50dp</dimen>
     <dimen name="nav_avatar">64dp</dimen>
     <dimen name="avatar_default">40dp</dimen>
     <dimen name="home_divider_height">10dp</dimen>
+    <dimen name="follow_divider_height">1dp</dimen>
 </resources>

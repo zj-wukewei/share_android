@@ -9,18 +9,21 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.support.v7.widget.Toolbar
+import android.view.View
 import com.github.wkw.share.R
 import com.github.wkw.share.base.AbstractPagerAdapter
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityMainBinding
 import com.github.wkw.share.ui.extens.getCompatColor
+import com.github.wkw.share.ui.extens.navigateToActivity
+import com.github.wkw.share.ui.follow.FollowActivity
 import com.github.wkw.share.ui.home.HomeFragment
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector {
+class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector, View.OnClickListener {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -46,6 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     }
 
     private fun initView() {
+        mBinding.presenter = this
         pagerAdapter = object : AbstractPagerAdapter(supportFragmentManager, arrayOf("主页", "热门", "社区")) {
             override fun getItem(pos: Int): Fragment? {
                 when (pos) {
@@ -76,4 +80,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
+
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.tv_nav_follow -> FollowActivity.startActivity(this@MainActivity, false)
+        }
+        mBinding.drawerLayout.closeDrawers()
+    }
+
 }

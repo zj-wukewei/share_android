@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.home.HomeDetailActivity" />
+        <activity android:name=".ui.follow.FollowActivity" />
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.github.wkw.share.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.github.wkw.share.ui.follow.FollowViewModel
 import com.github.wkw.share.ui.home.HomeViewModel
 import com.github.wkw.share.ui.login.LoginViewModel
 import com.github.wkw.share.ui.main.MainViewModel
@@ -30,6 +31,13 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FollowViewModel::class)
+    abstract fun bindFollowVideModel(followVideModel: FollowViewModel): ViewModel
+
     @Binds
     abstract fun bindViewModelFactory(factory: ShareViewModelFactory): ViewModelProvider.Factory
 

@@ -8,6 +8,10 @@
         <variable
             name="userInfo"
             type="com.github.wkw.share.vo.UserInfo" />
+
+        <variable
+            name="presenter"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -67,6 +71,7 @@
 
 
             <include
+                app:presenter="@{presenter}"
                 layout="@layout/nav_header_main"
                 app:userInfo="@{userInfo}" />
 

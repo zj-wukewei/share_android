@@ -1,9 +1,5 @@
 package com.github.wkw.share.vo
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
-
 data class Feed(val id: Int,
                 val userId: String,
                 val content: String,
