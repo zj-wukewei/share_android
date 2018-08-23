@@ -42,4 +42,10 @@ class UserRepository @Inject constructor(private val shareService: ShareService,
                 .compose(appExecutors.ioMainScheduler())
                 .compose(RepositoryUtils.handleResult())
     }
+
+    fun follow(userId: String): Observable<Boolean> {
+        return shareService.follow(userId)
+                .compose(appExecutors.ioMainScheduler())
+                .compose(RepositoryUtils.handleResult())
+    }
 }

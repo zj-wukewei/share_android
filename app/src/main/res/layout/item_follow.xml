@@ -20,11 +20,11 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:paddingRight="16dp"
         android:paddingLeft="16dp"
-        android:background="@color/white">
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
 
         <ImageView
             android:id="@+id/img_item_follow"
@@ -38,28 +38,34 @@
 
 
         <android.support.v7.widget.AppCompatTextView
-            app:layout_constraintLeft_toRightOf="@+id/img_item_follow"
             android:layout_width="wrap_content"
-            android:textColor="@color/app_title"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="18sp"
             android:text="@{item.nickname}"
-            tools:text="aaaaaaaaa"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/app_title"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/img_item_follow"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="aaaaaaaaa" />
 
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/app_title"
+            android:layout_height="wrap_content"
+            android:background="@{item.followed ? @drawable/ic_ffc107_2_bg : @drawable/ic_ffa000_2_bg}"
             android:onClick="@{(view) -> presenter.onItemClick(view, item)}"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="2dp"
             android:text="@{item.followed ? @string/followed : @string/follow}"
-            tools:text="关注"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/ic_ffc107_2_bg"
+            tools:text="关注" />
 
 
     </android.support.constraint.ConstraintLayout>

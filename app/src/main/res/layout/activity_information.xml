@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userInfo"
+            type="com.github.wkw.share.vo.UserInfo"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/window_background_color">
+
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/include_tool_bar" />
+
+
+        <LinearLayout
+            android:id="@+id/llyt_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/white"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="85dp"
+                app:url="@{userInfo.avatar}"
+                tools:src="@drawable/ic_default_avatar"
+                android:layout_height="85dp" />
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/llyt_avatar"
+            android:text="@string/nickname"
+            style="@style/item_information_text" />
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

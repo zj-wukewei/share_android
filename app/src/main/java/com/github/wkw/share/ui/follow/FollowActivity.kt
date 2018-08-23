@@ -14,9 +14,11 @@ import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
 import com.github.wkw.share.ui.extens.toast
+import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Follow
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.AndroidInjection
+import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -63,13 +65,13 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
         fetchData()
         mBinding.recyclerView.run {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(context)
             addItemDecoration(
                     HorizontalDividerItemDecoration.Builder(context)
                             .colorResId(R.color.home_item_divider_color)
                             .sizeResId(R.dimen.home_divider_height)
                             .build()
             )
+            layoutManager = LinearLayoutManager(context)
         }
         mBinding.swLayout.setOnRefreshListener {
             fetchData()
@@ -89,7 +91,11 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     override fun getLayoutId() = R.layout.activity_list
 
     override fun onItemClick(v: View?, item: Follow) {
-        toast(item.nickname?: "")
+        followViewModel.follow(item.userId.toString())
+                .compose(Live.bindLifecycle(this))
+                .subscribeBy(onNext = {
+                    item.followed = it
+                })
     }
 
 }
