@@ -14,8 +14,8 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.AbstractPagerAdapter
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityMainBinding
+import com.github.wkw.share.repository.PushService
 import com.github.wkw.share.ui.extens.getCompatColor
-import com.github.wkw.share.ui.extens.navigateToActivity
 import com.github.wkw.share.ui.follow.FollowActivity
 import com.github.wkw.share.ui.home.HomeFragment
 import dagger.android.AndroidInjection
@@ -30,13 +30,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
 
-
     lateinit var pagerAdapter: FragmentStatePagerAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var pushService: PushService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -64,6 +66,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
         mBinding.viewPager.offscreenPageLimit = pagerAdapter.count
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
         syncToolBar(mBinding.toolbar)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pushService.connect()
     }
 
     private fun syncToolBar(toolbar: Toolbar) {

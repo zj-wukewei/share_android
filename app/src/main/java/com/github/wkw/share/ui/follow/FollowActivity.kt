@@ -13,13 +13,14 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
+import com.github.wkw.share.repository.PushService
 import com.github.wkw.share.ui.extens.toast
 import com.github.wkw.share.utils.Live
+import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.AndroidInjection
 import io.reactivex.rxkotlin.subscribeBy
-import timber.log.Timber
 import javax.inject.Inject
 
 class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<Follow> {
@@ -28,10 +29,10 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     companion object {
         private const val TYPE = "IS_FANS"
 
-         fun startActivity(context: Context, isFnas: Boolean) {
-             val intent = Intent(context, FollowActivity::class.java)
-             intent.putExtra(TYPE, isFnas)
-             context.startActivity(intent)
+        fun startActivity(context: Context, isFans: Boolean) {
+            val intent = Intent(context, FollowActivity::class.java)
+            intent.putExtra(TYPE, isFans)
+            context.startActivity(intent)
         }
     }
 
@@ -41,15 +42,16 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     @Inject
     lateinit var appExecutors: AppExecutors
 
-     private val mAdapter by lazy {
+    private val mAdapter by lazy {
         FollowAdapter(appExecutors).apply {
             itemPresenter = this@FollowActivity
         }
     }
 
-    private val isFnas: Boolean by lazy {
-        intent.getBooleanExtra(TYPE, false)
-    }
+    @Inject
+    lateinit var pushService: PushService
+
+    private val isFans: Boolean by extraDelegate(TYPE, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -76,17 +78,24 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
         mBinding.swLayout.setOnRefreshListener {
             fetchData()
         }
+
+        pushService.followEvent()
+                .subscribe { it ->
+                    it?.let {
+                        toast(it.payload)
+                    }
+                }
     }
 
+
     private fun fetchData() {
-        if (isFnas) {
+        if (isFans) {
             followViewModel.fans()
         } else {
             followViewModel.myFollow()
         }
 
     }
-
 
     override fun getLayoutId() = R.layout.activity_list
 

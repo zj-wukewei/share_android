@@ -82,10 +82,12 @@
             app:layout_constraintRight_toLeftOf="@+id/llyt_home_comment"
             app:layout_constraintTop_toBottomOf="@id/tv_home_content">
 
-            <android.support.v7.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatCheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_like" />
+                android:checked="@{item.liked}"
+                android:onClick="@{(v) -> presenter.onItemClick(v, item)}"
+                android:button="@drawable/ic_checkbox_like_bg" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_home_like"

@@ -1,12 +1,12 @@
 package com.github.wkw.share.api
 
-import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.reponse.ListDataEntity
-import com.github.wkw.share.api.request.AbstractQry
+import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.FeedQry
 import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.vo.Feed
 import com.github.wkw.share.vo.Follow
+import com.github.wkw.share.vo.Like
 import com.github.wkw.share.vo.UserInfo
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -23,7 +23,7 @@ interface ShareService {
      *
      * @param
      * @return
-    */
+     */
     @POST("user/login")
     fun login(@Body login: LoginRequest): Observable<ShareResponse<UserEntity>>
 
@@ -33,16 +33,19 @@ interface ShareService {
      *
      * @param
      * @return
-    */
+     */
     @POST("feed/list")
     fun feeds(@Body qry: FeedQry): Observable<ShareResponse<ListDataEntity<Feed>>>
+
+    @GET("feed/like/{feedId}")
+    fun likeFeed(@Path("feedId") feedId: Int): Observable<ShareResponse<Like>>
 
     /***
      *  用户信息
      *
      * @param
      * @return
-    */
+     */
     @GET("user/info")
     fun userInfo(): Observable<ShareResponse<UserInfo>>
 
@@ -51,7 +54,7 @@ interface ShareService {
      *
      * @param
      * @return
-    */
+     */
     @GET("user/follows")
     fun myFollows(): Observable<ShareResponse<List<Follow>>>
 
@@ -61,7 +64,7 @@ interface ShareService {
      *
      * @param
      * @return
-    */
+     */
     @GET("user/follows")
     fun myFans(): Observable<ShareResponse<List<Follow>>>
 
@@ -71,7 +74,7 @@ interface ShareService {
      *
      * @param   userId 关注者的id
      * @return
-    */
+     */
     @GET("user/follow/{userId}")
     fun follow(@Path("userId") userId: String): Observable<ShareResponse<Boolean>>
 }

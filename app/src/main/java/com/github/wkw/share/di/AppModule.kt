@@ -2,6 +2,7 @@ package com.github.wkw.share.di
 
 import android.app.Application
 import android.content.Context
+import com.github.wkw.share.BuildConfig
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
@@ -41,7 +42,7 @@ class AppModule {
         val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         return Retrofit.Builder()
-                .baseUrl("http://192.168.8.127:8080/")
+                .baseUrl(BuildConfig.HOST_API)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

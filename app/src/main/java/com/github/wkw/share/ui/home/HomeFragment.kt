@@ -12,11 +12,11 @@ import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
-import com.github.wkw.share.ui.extens.navigateToActivity
-import com.github.wkw.share.ui.login.LoginActivity
+import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Feed
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -82,22 +82,14 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
 
     override fun onItemClick(v: View?, item: Feed) {
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        Timber.d("onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.d("onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.d("onDestroy")
+        homeViewModel.like(item.id)
+                .compose(Live.bindLifecycle(this))
+                .subscribeBy(
+                        onNext = { it ->
+                            item.likeCount = it.lickCount
+                            item.liked = it.liked
+                        }
+                )
     }
 
     private fun initView() {
