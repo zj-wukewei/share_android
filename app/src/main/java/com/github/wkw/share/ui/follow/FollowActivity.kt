@@ -14,7 +14,6 @@ import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
 import com.github.wkw.share.repository.PushService
-import com.github.wkw.share.ui.extens.toast
 import com.github.wkw.share.utils.Live
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
@@ -79,12 +78,7 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
             fetchData()
         }
 
-        pushService.followEvent()
-                .subscribe { it ->
-                    it?.let {
-                        toast(it.payload)
-                    }
-                }
+
     }
 
 
