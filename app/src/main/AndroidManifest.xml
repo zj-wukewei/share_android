@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.github.wkw.share">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,6 +23,8 @@
         </activity>
         <activity android:name=".ui.home.HomeDetailActivity" />
         <activity android:name=".ui.follow.FollowActivity" />
+        <activity android:name=".ui.user.info.InformationActivity" />
+        <activity android:name=".ui.settings.SettingsActivity" />
     </application>
 
 </manifest>

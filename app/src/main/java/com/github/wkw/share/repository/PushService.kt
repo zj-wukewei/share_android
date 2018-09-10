@@ -31,7 +31,7 @@ class PushService @Inject constructor(val okHttpClient: OkHttpClient, private va
         headerMap[HeadInterceptor.APP_ID] = HeadInterceptor.ANDROID_APP_ID
         headerMap[HeadInterceptor.APP_VERSION] = BuildConfig.VERSION_CODE.toString()
         headerMap[HeadInterceptor.APP_MODEL] = Build.MODEL
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.8.141:8080/share/websocket", headerMap, okHttpClient)
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.8.163:8080/share/websocket", headerMap, okHttpClient)
         mStompClient!!.lifecycle()?.subscribe { it ->
             when (it?.type) {
                 LifecycleEvent.Type.OPENED -> Timber.d("OPENED")

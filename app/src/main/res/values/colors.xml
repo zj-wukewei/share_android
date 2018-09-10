@@ -13,6 +13,7 @@
     <color name="home_item_divider_color">#f4f4f4</color>
     <color name="window_background_color">#f4f4f4</color>
     <color name="light_grey">#e6e6e6</color>
+    <color name="edt_gray_text_color">#757575</color>
     <color name="toolbar_line_color">#d5d5d5</color>
 </resources>
 

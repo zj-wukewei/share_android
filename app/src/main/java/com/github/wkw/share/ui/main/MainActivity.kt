@@ -18,6 +18,7 @@ import com.github.wkw.share.repository.PushService
 import com.github.wkw.share.ui.extens.getCompatColor
 import com.github.wkw.share.ui.follow.FollowActivity
 import com.github.wkw.share.ui.home.HomeFragment
+import com.github.wkw.share.ui.settings.SettingsActivity
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -92,6 +93,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.tv_nav_follow -> FollowActivity.startActivity(this@MainActivity, false)
+            R.id.tv_nav_setting -> SettingsActivity.startActivity(this@MainActivity)
         }
         mBinding.drawerLayout.closeDrawers()
     }

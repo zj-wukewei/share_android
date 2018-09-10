@@ -53,18 +53,12 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.v7.widget.AppCompatTextView
-            style="@style/nav_text"
-            android:drawableStart="@drawable/ic_home"
-            android:text="@string/personal_info"
-            app:layout_constraintTop_toBottomOf="@id/cl_nav_header" />
-
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_nav_info"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
-            android:text="@string/personal_info"
+            android:text="@string/home_page"
             app:layout_constraintTop_toBottomOf="@id/cl_nav_header" />
 
 
@@ -81,6 +75,7 @@
             android:id="@+id/tv_nav_setting"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
+            android:onClick="@{(v)->presenter.onClick(v)}"
             android:text="@string/setting"
             app:layout_constraintTop_toBottomOf="@id/tv_nav_follow" />
 

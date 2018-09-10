@@ -7,4 +7,8 @@
     <dimen name="avatar_default">40dp</dimen>
     <dimen name="home_divider_height">10dp</dimen>
     <dimen name="follow_divider_height">1dp</dimen>
+
+    <!--informationActivity-->
+    <dimen name="item_content_padding">72dp</dimen>
+    <dimen name="item_info_padding">16dp</dimen>
 </resources>
