@@ -4,10 +4,8 @@ import com.github.wkw.share.api.reponse.ListDataEntity
 import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.FeedQry
 import com.github.wkw.share.api.request.LoginRequest
-import com.github.wkw.share.vo.Feed
-import com.github.wkw.share.vo.Follow
-import com.github.wkw.share.vo.Like
-import com.github.wkw.share.vo.UserInfo
+import com.github.wkw.share.api.request.UserInfoRequest
+import com.github.wkw.share.vo.*
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -50,6 +48,14 @@ interface ShareService {
     fun userInfo(): Observable<ShareResponse<UserInfo>>
 
     /***
+     *  修改用户信息
+     * @param
+     * @return
+     */
+    @POST("user/info")
+    fun postUserInfo(@Body userInfo: UserInfoRequest): Observable<ShareResponse<Void>>
+
+    /***
      *  我关注的人
      *
      * @param
@@ -77,4 +83,14 @@ interface ShareService {
      */
     @GET("user/follow/{userId}")
     fun follow(@Path("userId") userId: String): Observable<ShareResponse<Boolean>>
+
+
+    /***
+     *  获取种类
+     * @author GoGo
+     * @param
+     * @return
+     */
+    @GET("category/list")
+    fun categoryList(): Observable<ShareResponse<List<Category>>>
 }
