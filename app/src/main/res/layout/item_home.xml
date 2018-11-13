@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{item.liked}"
-                android:onClick="@{(v) -> presenter.onItemClick(v, item)}"
+                android:onClick="@{(v) -> presenter.onItemClick(item)}"
                 android:button="@drawable/ic_checkbox_like_bg" />
 
             <android.support.v7.widget.AppCompatTextView

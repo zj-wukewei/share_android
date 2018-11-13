@@ -1,5 +1,6 @@
 package com.github.wkw.share.repository
 
+import android.annotation.SuppressLint
 import android.os.Build
 import com.github.wkw.share.BuildConfig
 import com.github.wkw.share.UserManager
@@ -24,6 +25,7 @@ class PushService @Inject constructor(val okHttpClient: OkHttpClient, private va
     private val gson = Gson()
 
 
+    @SuppressLint("CheckResult")
     @Synchronized
     private fun initStompClient() {
         val headerMap = HashMap<String, String>()

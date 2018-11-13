@@ -7,14 +7,14 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import com.github.wkw.share.AppExecutors
+import com.github.wkw.share.BR
 import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
 import com.uber.autodispose.autoDisposable
+import com.wkw.magicadapter.MagicAdapter
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import timber.log.Timber
@@ -37,19 +37,21 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         }
     }
 
-
     private val mAdapter by lazy {
-        HomeAdapter(appExecutors).apply {
-            itemPresenter = this@HomeFragment
-        }
+        MagicAdapter.repositoryAdapter()
+                .addItemDsl<Feed> {
+                    resId = R.layout.item_home
+                    handler(BR.presenter, this@HomeFragment)
+                    areContentsTheSame = { oldItem, newItem -> oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount }
+                    areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
+                }
+                .build()
     }
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var homeViewModel: HomeViewModel
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
 
 
     override fun onAttach(context: Context?) {
@@ -82,8 +84,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         })
     }
 
-
-    override fun onItemClick(v: View?, item: Feed) {
+    override fun onItemClick(item: Feed) {
         homeViewModel.like(item.id)
                 .autoDisposable(mScopeProvider)
                 .subscribeBy(

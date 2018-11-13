@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@{item.followed ? @drawable/ic_ffc107_2_bg : @drawable/ic_ffa000_2_bg}"
-            android:onClick="@{(view) -> presenter.onItemClick(view, item)}"
+            android:onClick="@{(view) -> presenter.onItemClick(item)}"
             android:paddingBottom="2dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

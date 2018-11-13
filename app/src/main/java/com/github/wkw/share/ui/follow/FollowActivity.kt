@@ -7,17 +7,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import com.github.wkw.share.AppExecutors
+import com.github.wkw.share.BR
 import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
-import com.github.wkw.share.repository.PushService
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
 import com.uber.autodispose.autoDisposable
+import com.wkw.magicadapter.MagicAdapter
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -38,17 +37,18 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var followViewModel: FollowViewModel
-    @Inject
-    lateinit var appExecutors: AppExecutors
+
 
     private val mAdapter by lazy {
-        FollowAdapter(appExecutors).apply {
-            itemPresenter = this@FollowActivity
-        }
+        MagicAdapter.repositoryAdapter()
+                .addItemDsl<Follow> {
+                    resId = R.layout.item_follow
+                    handler(BR.presenter, this@FollowActivity)
+                    areContentsTheSame = { oldItem, newItem -> oldItem.avatar == newItem.avatar && oldItem.nickname == newItem.nickname && oldItem.followed == newItem.followed }
+                    areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
+                }
+                .build()
     }
-
-    @Inject
-    lateinit var pushService: PushService
 
     private val isFans: Boolean by extraDelegate(TYPE, false)
 
@@ -58,9 +58,9 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
         initBackToolbar(mBinding.toolbarLayout.toolbar, getString(R.string.follow))
         followViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FollowViewModel::class.java)
-        followViewModel.result.observe(this, Observer {
+        followViewModel.result.observe(this, Observer { it ->
             mBinding.swLayout.isRefreshing = false
-            mAdapter.submitList(it)
+            it?.let { mAdapter.submitList(it) }
         })
 
         fetchData()
@@ -93,7 +93,7 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
 
     override fun getLayoutId() = R.layout.activity_list
 
-    override fun onItemClick(v: View?, item: Follow) {
+    override fun onItemClick(item: Follow) {
         followViewModel.follow(item.userId.toString())
                 .autoDisposable(mScopeProvider)
                 .subscribeBy(onNext = {

@@ -1,4 +1,4 @@
-package com.github.wkw.share.ui.page
+package com.github.wkw.share.base.page
 
 import android.arch.lifecycle.MutableLiveData
 import com.github.wkw.share.api.reponse.ListDataEntity

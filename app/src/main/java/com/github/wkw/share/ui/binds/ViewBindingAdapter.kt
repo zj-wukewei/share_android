@@ -11,7 +11,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.wkw.share.R
-import com.github.wkw.share.ui.page.PageViewModel
+import com.github.wkw.share.base.page.PageViewModel
 
 @BindingAdapter(value = ["onRefresh"])
 fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel<*, Any>?) {
