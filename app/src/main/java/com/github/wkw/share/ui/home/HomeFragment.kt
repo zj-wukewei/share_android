@@ -12,11 +12,11 @@ import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
-import com.github.wkw.share.utils.Live
+import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
+import com.uber.autodispose.autoDisposable
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
-import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,6 +37,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         }
     }
 
+
     private val mAdapter by lazy {
         HomeAdapter(appExecutors).apply {
             itemPresenter = this@HomeFragment
@@ -49,6 +50,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
     @Inject
     lateinit var appExecutors: AppExecutors
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -83,7 +85,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
     override fun onItemClick(v: View?, item: Feed) {
         homeViewModel.like(item.id)
-                .compose(Live.bindLifecycle(this))
+                .autoDisposable(mScopeProvider)
                 .subscribeBy(
                         onNext = { it ->
                             item.likeCount = it.lickCount

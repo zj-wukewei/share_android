@@ -14,12 +14,12 @@ import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
 import com.github.wkw.share.repository.PushService
-import com.github.wkw.share.utils.Live
+import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
+import com.uber.autodispose.autoDisposable
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.AndroidInjection
-import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<Follow> {
@@ -95,7 +95,7 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
 
     override fun onItemClick(v: View?, item: Follow) {
         followViewModel.follow(item.userId.toString())
-                .compose(Live.bindLifecycle(this))
+                .autoDisposable(mScopeProvider)
                 .subscribeBy(onNext = {
                     item.followed = it
                 })

@@ -1,10 +1,9 @@
-package com.github.wkw.share.ui.extens
+package com.github.wkw.share.utils.ext
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
-import com.github.wkw.share.utils.Live
 import com.github.wkw.share.vo.Resource
 import com.github.wkw.share.vo.Status
 import io.reactivex.BackpressureStrategy

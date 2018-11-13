@@ -1,4 +1,4 @@
-package com.github.wkw.share.ui.extens
+package com.github.wkw.share.utils.ext
 
 import android.app.Activity
 import android.content.Context

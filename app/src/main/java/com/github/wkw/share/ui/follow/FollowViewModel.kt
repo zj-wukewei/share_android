@@ -2,17 +2,19 @@ package com.github.wkw.share.ui.follow
 
 import android.arch.lifecycle.MutableLiveData
 import com.github.wkw.share.repository.UserRepository
-import com.github.wkw.share.viewmodel.BaseViewModel
+import com.github.wkw.share.utils.ext.subscribeBy
+import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.github.wkw.share.vo.Follow
-import io.reactivex.rxkotlin.subscribeBy
+import com.uber.autodispose.autoDisposable
 import javax.inject.Inject
 
-class FollowViewModel @Inject constructor(private val userRepository: UserRepository): BaseViewModel() {
+class FollowViewModel @Inject constructor(private val userRepository: UserRepository) : AutoDisposeViewModel() {
 
     val result = MutableLiveData<List<Follow>>()
 
     fun myFollow() {
         userRepository.myFollows()
+                .autoDisposable(this)
                 .subscribeBy(onNext = {
                     result.postValue(it)
                 })
@@ -21,6 +23,7 @@ class FollowViewModel @Inject constructor(private val userRepository: UserReposi
 
     fun fans() {
         userRepository.myFans()
+                .autoDisposable(this)
                 .subscribeBy(onNext = {
                     result.postValue(it)
                 })

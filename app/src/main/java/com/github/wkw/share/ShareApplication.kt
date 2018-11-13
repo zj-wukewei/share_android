@@ -5,7 +5,7 @@ import android.app.Application
 import com.github.wkw.share.api.exception.NetworkConnectionException
 import com.github.wkw.share.api.exception.ResponseException
 import com.github.wkw.share.di.DaggerAppComponent
-import com.github.wkw.share.ui.extens.toast
+import com.github.wkw.share.utils.ext.toast
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.reactivex.plugins.RxJavaPlugins

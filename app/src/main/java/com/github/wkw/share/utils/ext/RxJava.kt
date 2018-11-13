@@ -1,4 +1,4 @@
-package com.github.wkw.share.ui.extens
+package com.github.wkw.share.utils.ext
 
 import android.arch.lifecycle.LiveData
 import com.github.wkw.share.utils.RxJavaToLiveDataConvert.fromObservable

@@ -15,10 +15,10 @@ import com.github.wkw.share.base.AbstractPagerAdapter
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityMainBinding
 import com.github.wkw.share.repository.PushService
-import com.github.wkw.share.ui.extens.getCompatColor
 import com.github.wkw.share.ui.follow.FollowActivity
 import com.github.wkw.share.ui.home.HomeFragment
 import com.github.wkw.share.ui.settings.SettingsActivity
+import com.github.wkw.share.utils.ext.getCompatColor
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector

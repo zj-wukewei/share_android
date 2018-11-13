@@ -1,20 +1,18 @@
 package com.github.wkw.share.ui.login
 
+
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.view.View
-import android.widget.Toast
 import com.github.wkw.share.R
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.databinding.ActivityLoginBinding
-import com.github.wkw.share.ui.extens.navigateToActivity
 import com.github.wkw.share.ui.main.MainActivity
+import com.github.wkw.share.utils.ext.navigateToActivity
 import dagger.android.AndroidInjection
-import timber.log.Timber
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {

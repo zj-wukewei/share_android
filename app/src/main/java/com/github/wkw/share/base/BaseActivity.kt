@@ -10,9 +10,13 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.WindowManager
 import com.github.wkw.share.R
-import com.github.wkw.share.ui.extens.getCompatColor
+import com.github.wkw.share.utils.ext.getCompatColor
+import com.uber.autodispose.ScopeProvider
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
+
+    protected val mScopeProvider: ScopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
 
     lateinit var mBinding: VB
 
