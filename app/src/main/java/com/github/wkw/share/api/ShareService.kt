@@ -27,18 +27,6 @@ interface ShareService {
 
 
     /***
-     *  首页feed列表
-     *
-     * @param
-     * @return
-     */
-    @POST("feed/list")
-    fun feeds(@Body qry: FeedQry): Observable<ShareResponse<ListDataEntity<Feed>>>
-
-    @GET("feed/like/{feedId}")
-    fun likeFeed(@Path("feedId") feedId: Int): Observable<ShareResponse<Like>>
-
-    /***
      *  用户信息
      *
      * @param
@@ -83,6 +71,28 @@ interface ShareService {
      */
     @GET("user/follow/{userId}")
     fun follow(@Path("userId") userId: String): Observable<ShareResponse<Boolean>>
+
+
+    /***
+     *  首页feed列表
+     *
+     * @param
+     * @return
+     */
+    @POST("feed/list")
+    fun feeds(@Body qry: FeedQry): Observable<ShareResponse<ListDataEntity<Feed>>>
+
+
+    /***
+     * 首页的喜欢
+     * @author GoGo
+     * @param
+     * @return
+     */
+    @GET("feed/like/{feedId}")
+    fun likeFeed(@Path("feedId") feedId: Int): Observable<ShareResponse<Like>>
+
+
 
 
     /***

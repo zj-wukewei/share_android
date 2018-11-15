@@ -51,6 +51,7 @@ def glideVersion = '4.8.0'
 def lifecycleVersion = '1.1.1'
 def autodisposeVersion = '1.0.0-RC2'
 def supportVersion = '28.0.0'
+def materialDialogVersion = '2.0.0-alpha01'
 
 kapt {
     generateStubs = true
@@ -69,6 +70,8 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersions"
     implementation "com.google.dagger:dagger-android:$daggerVersions"
     implementation "com.google.dagger:dagger-android-support:$daggerVersions"
+
+    implementation "com.afollestad.material-dialogs:core:$materialDialogVersion"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"

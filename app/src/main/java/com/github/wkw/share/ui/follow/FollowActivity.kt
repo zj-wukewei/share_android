@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<Follow> {
 
-
     companion object {
         private const val TYPE = "IS_FANS"
 
@@ -37,7 +36,6 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var followViewModel: FollowViewModel
-
 
     private val mAdapter by lazy {
         MagicAdapter.repositoryAdapter()
@@ -80,7 +78,6 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
 
 
     }
-
 
     private fun fetchData() {
         if (isFans) {

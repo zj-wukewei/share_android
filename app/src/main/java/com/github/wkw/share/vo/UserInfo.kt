@@ -8,5 +8,6 @@ data class UserInfo(
         val bio: String?,
         val location: String?,
         val age: Int?,
-        val gender: Int?
+        val gender: Int?,
+        val categoryId: Int?
 )

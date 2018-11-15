@@ -26,7 +26,7 @@ abstract class PageViewModel<Query : AbstractQry, T> : AutoDisposeViewModel() {
                 .compose {
                     transformer(it)
                 }
-                .autoDisposable(PageViewModel@ this)
+                .autoDisposable(this)
                 .subscribeBy(onNext = { it ->
                     it?.let {
                         hasMore.postValue(it.hasMore)
