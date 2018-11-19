@@ -14,8 +14,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "HOST_API", "\"http://10.168.30.132:8080/\"")
+        buildConfigField("String", "HOST_API", "\"http://192.168.1.114:8080/\"")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -72,6 +73,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersions"
     implementation "com.google.dagger:dagger-android-support:$daggerVersions"
 
+    implementation 'com.android.support:multidex:1.0.3'
     implementation "com.afollestad.material-dialogs:core:$materialDialogVersion"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"

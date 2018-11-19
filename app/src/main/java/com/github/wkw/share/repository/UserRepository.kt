@@ -10,6 +10,7 @@ import com.github.wkw.share.vo.Follow
 import com.github.wkw.share.vo.UserInfo
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -32,16 +33,15 @@ class UserRepository @Inject constructor(private val shareService: ShareService,
     }
 
 
-    @SuppressLint("CheckResult")
-    fun myFollows(): Flowable<List<Follow>> {
-        val localFollows = followDao.getAll()
-        shareService.myFollows()
+    fun syncRemoteFollows(): Observable<List<Follow>> {
+        return shareService.myFollows()
                 .compose(RepositoryUtils.handleResult())
                 .subscribeOn(appExecutors.networkIO)
-                .subscribeBy { it -> followDao.insertAll(it) }
-        return localFollows
     }
 
+    fun getLocalFollows(): Flowable<List<Follow>> = followDao.getAll()
+
+    fun insertFollowsAll(follows: List<Follow>) = followDao.insertAll(follows)
 
     fun myFans(): Observable<List<Follow>> {
         return shareService.myFans()

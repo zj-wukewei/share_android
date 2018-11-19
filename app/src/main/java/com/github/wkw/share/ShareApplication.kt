@@ -2,6 +2,7 @@ package com.github.wkw.share;
 
 import android.app.Activity
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.github.wkw.share.api.exception.NetworkConnectionException
 import com.github.wkw.share.api.exception.ResponseException
 import com.github.wkw.share.di.DaggerAppComponent
@@ -18,7 +19,7 @@ import javax.inject.Inject
  * @author GoGo on 2018/8/6.
  */
 
-class ShareApplication : Application(), HasActivityInjector {
+class ShareApplication : MultiDexApplication(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 

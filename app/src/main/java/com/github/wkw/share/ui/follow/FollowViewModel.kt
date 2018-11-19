@@ -12,8 +12,15 @@ class FollowViewModel @Inject constructor(private val userRepository: UserReposi
 
     val result = MutableLiveData<List<Follow>>()
 
+    init {
+        userRepository
+                .syncRemoteFollows()
+                .autoDisposable(this)
+                .subscribeBy { userRepository.insertFollowsAll(it) }
+    }
+
     fun myFollow() {
-        userRepository.myFollows()
+        userRepository.getLocalFollows()
                 .autoDisposable(this)
                 .subscribeBy(onNext = {
                     result.postValue(it)
