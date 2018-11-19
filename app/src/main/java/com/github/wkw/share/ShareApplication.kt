@@ -13,6 +13,7 @@ import timber.log.Timber
 import java.net.ConnectException
 import javax.inject.Inject
 
+
 /**
  * @author GoGo on 2018/8/6.
  */
@@ -20,7 +21,6 @@ import javax.inject.Inject
 class ShareApplication : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-
 
     override fun onCreate() {
         super.onCreate()
@@ -33,7 +33,8 @@ class ShareApplication : Application(), HasActivityInjector {
     }
 
     private fun initRxJavaError() {
-        RxJavaPlugins.setErrorHandler {
+        RxJavaPlugins.setErrorHandler { it ->
+            Timber.d(it)
             when (it.cause) {
                 is ConnectException -> toast(getString(R.string.network_error))
                 is NetworkConnectionException -> toast(getString(R.string.network_error))
@@ -42,6 +43,7 @@ class ShareApplication : Application(), HasActivityInjector {
             }
         }
     }
+
 
     override fun activityInjector() = dispatchingAndroidInjector
 }

@@ -1,11 +1,14 @@
 package com.github.wkw.share.di
 
 import android.app.Application
+import android.arch.persistence.room.Room
 import android.content.Context
 import com.github.wkw.share.BuildConfig
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
+import com.github.wkw.share.db.AppDatabase
+import com.github.wkw.share.db.FollowDao
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -63,5 +66,19 @@ class AppModule {
         return UserManager(app.applicationContext)
     }
 
+    @Singleton
+    @Provides
+    fun providerAppDatabase(app: Application): AppDatabase {
+        return Room
+                .databaseBuilder(app, AppDatabase::class.java, "database-share")
+                .fallbackToDestructiveMigration()
+                .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providerFollowDao(appDatabase: AppDatabase): FollowDao {
+        return appDatabase.followDao()
+    }
 
 }

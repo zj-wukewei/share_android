@@ -32,6 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         if (userManager.token.isNotEmpty()) {
             navigateToActivity(MainActivity::class.java)
             finish()
+            return
         }
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LoginViewModel::class.java)

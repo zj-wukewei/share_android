@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.content.ContextCompat
-import android.widget.Toast
+import com.github.wkw.share.utils.ToastUtils
 
-inline fun Context.toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+inline fun Context.toast(msg: String) = ToastUtils.showToast(this, msg)
 
 inline fun Context.getCompatColor(colorId: Int) = ContextCompat.getColor(this, colorId)
 

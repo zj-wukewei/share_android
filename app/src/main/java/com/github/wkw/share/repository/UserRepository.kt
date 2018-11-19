@@ -1,20 +1,23 @@
 package com.github.wkw.share.repository
 
+import android.annotation.SuppressLint
 import com.github.wkw.share.AppExecutors
-import com.github.wkw.share.api.ShareResponse
 import com.github.wkw.share.api.ShareService
 import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.LoginRequest
-import com.github.wkw.share.utils.encode
+import com.github.wkw.share.db.FollowDao
 import com.github.wkw.share.vo.Follow
 import com.github.wkw.share.vo.UserInfo
+import io.reactivex.Flowable
 import io.reactivex.Observable
-import retrofit2.http.GET
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserRepository @Inject constructor(private val shareService: ShareService, private val appExecutors: AppExecutors) {
+class UserRepository @Inject constructor(private val shareService: ShareService,
+                                         private val followDao: FollowDao,
+                                         private val appExecutors: AppExecutors) {
 
     fun login(loginRequest: LoginRequest): Observable<UserEntity> {
         return shareService.login(loginRequest)
@@ -29,11 +32,14 @@ class UserRepository @Inject constructor(private val shareService: ShareService,
     }
 
 
-    fun myFollows(): Observable<List<Follow>> {
-        return shareService.myFollows()
-                .compose(appExecutors.ioMainScheduler())
+    @SuppressLint("CheckResult")
+    fun myFollows(): Flowable<List<Follow>> {
+        val localFollows = followDao.getAll()
+        shareService.myFollows()
                 .compose(RepositoryUtils.handleResult())
-
+                .subscribeOn(appExecutors.networkIO)
+                .subscribeBy { it -> followDao.insertAll(it) }
+        return localFollows
     }
 
 

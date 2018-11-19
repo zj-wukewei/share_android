@@ -52,6 +52,7 @@ def lifecycleVersion = '1.1.1'
 def autodisposeVersion = '1.0.0-RC2'
 def supportVersion = '28.0.0'
 def materialDialogVersion = '2.0.0-alpha01'
+def room_version = "1.1.1"
 
 kapt {
     generateStubs = true
@@ -95,6 +96,19 @@ dependencies {
 
     kapt "com.google.dagger:dagger-android-processor:$daggerVersions"
     kapt "com.google.dagger:dagger-compiler:$daggerVersions"
+
+
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
+
+    // optional - RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "android.arch.persistence.room:guava:$room_version"
+
+    // Test helpers
+    testImplementation "android.arch.persistence.room:testing:$room_version"
 
     testImplementation 'junit:junit:4.12'
 }

@@ -12,6 +12,7 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
+import com.github.wkw.share.db.FollowDao
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
@@ -19,6 +20,7 @@ import com.uber.autodispose.autoDisposable
 import com.wkw.magicadapter.MagicAdapter
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.AndroidInjection
+import timber.log.Timber
 import javax.inject.Inject
 
 class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<Follow> {
@@ -50,6 +52,9 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
 
     private val isFans: Boolean by extraDelegate(TYPE, false)
 
+    @Inject
+    lateinit var followDao: FollowDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -75,6 +80,11 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
         mBinding.swLayout.setOnRefreshListener {
             fetchData()
         }
+
+        followDao.getAll().autoDisposable(mScopeProvider)
+                .subscribeBy(
+                        onNext = { Timber.d("follows size %s", it.size.toString()) }
+                )
 
 
     }
