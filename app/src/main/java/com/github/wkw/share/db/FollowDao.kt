@@ -20,4 +20,7 @@ interface FollowDao {
 
     @Delete
     fun delete(follow: Follow)
+
+    @Query("DELETE FROM Follow")
+    fun deleteAllFollows()
 }

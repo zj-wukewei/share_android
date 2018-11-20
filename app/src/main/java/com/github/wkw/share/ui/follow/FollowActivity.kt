@@ -12,7 +12,6 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.databinding.ActivityListBinding
-import com.github.wkw.share.db.FollowDao
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
@@ -52,8 +51,6 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
 
     private val isFans: Boolean by extraDelegate(TYPE, false)
 
-    @Inject
-    lateinit var followDao: FollowDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -63,7 +60,10 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
                 .get(FollowViewModel::class.java)
         followViewModel.result.observe(this, Observer { it ->
             mBinding.swLayout.isRefreshing = false
-            it?.let { mAdapter.submitList(it) }
+            it?.let {
+                Timber.d("follows size %s", it.size.toString())
+                mAdapter.submitList(it)
+            }
         })
 
         fetchData()
@@ -81,12 +81,6 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
             fetchData()
         }
 
-        followDao.getAll().autoDisposable(mScopeProvider)
-                .subscribeBy(
-                        onNext = { Timber.d("follows size %s", it.size.toString()) }
-                )
-
-
     }
 
     private fun fetchData() {
@@ -95,13 +89,12 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
         } else {
             followViewModel.myFollow()
         }
-
     }
 
     override fun getLayoutId() = R.layout.activity_list
 
     override fun onItemClick(item: Follow) {
-        followViewModel.follow(item.userId.toString())
+        followViewModel.follow(item)
                 .autoDisposable(mScopeProvider)
                 .subscribeBy(onNext = {
                     item.followed = it

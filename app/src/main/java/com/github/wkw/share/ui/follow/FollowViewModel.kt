@@ -36,5 +36,5 @@ class FollowViewModel @Inject constructor(private val userRepository: UserReposi
                 })
     }
 
-    fun follow(userId: String) = userRepository.follow(userId)
+    fun follow(item: Follow) = userRepository.follow(item)
 }

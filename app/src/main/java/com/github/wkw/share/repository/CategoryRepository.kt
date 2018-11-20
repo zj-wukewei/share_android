@@ -13,6 +13,12 @@ import javax.inject.Inject
  */
 class CategoryRepository @Inject constructor(private val shareService: ShareService, private val appExecutors: AppExecutors) {
 
+    /***
+     * 获取动物分类
+     * @author GoGo
+     * @param
+     * @return
+     */
     fun categoryList(): Observable<List<Category>> {
         return shareService.categoryList()
                 .compose(appExecutors.ioMainScheduler())
