@@ -29,6 +29,8 @@
     <!--home-->
     <string name="comment">评论</string>
     <string name="share">分享</string>
+    <string name="community_topic">社区话题</string>
+    <string name="post_topic">发布内容</string>
 
 
     <!--information-->

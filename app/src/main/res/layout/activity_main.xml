@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.main.MainActivity">
+
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
@@ -59,6 +61,39 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/menu_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                fab:menu_labels_style="@style/menu_labels_style"
+                fab:menu_labels_showAnimation="@anim/jump_from_down"
+                fab:menu_labels_hideAnimation="@anim/jump_to_down"
+                fab:menu_animationDelayPerItem="0"
+                fab:menu_shadowColor="#444"
+                fab:menu_colorNormal="#FFB805"
+                fab:menu_colorPressed="#F2AB00"
+                fab:menu_colorRipple="#D99200">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo"
+                    fab:fab_label="@string/community_topic"
+                    style="@style/menu_buttons_style" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_community"
+                    fab:fab_label="@string/post_topic"
+                    style="@style/menu_buttons_style" />
+            </com.github.clans.fab.FloatingActionMenu>
+
         </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView
@@ -76,6 +111,7 @@
                 app:userInfo="@{userInfo}" />
 
         </android.support.design.widget.NavigationView>
+
 
     </android.support.v4.widget.DrawerLayout>
 </layout>
