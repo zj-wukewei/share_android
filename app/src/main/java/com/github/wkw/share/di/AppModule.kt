@@ -8,6 +8,7 @@ import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.HeadInterceptor
 import com.github.wkw.share.api.ShareService
 import com.github.wkw.share.db.AppDatabase
+import com.github.wkw.share.db.FeedDao
 import com.github.wkw.share.db.FollowDao
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -81,4 +82,9 @@ class AppModule {
         return appDatabase.followDao()
     }
 
+    @Singleton
+    @Provides
+    fun providerFeedDao(appDatabase: AppDatabase): FeedDao {
+        return appDatabase.feedDao()
+    }
 }

@@ -1,6 +1,7 @@
 package com.github.wkw.share.di
 
 import com.github.wkw.share.ui.follow.FollowActivity
+import com.github.wkw.share.ui.home.HomeDetailActivity
 import com.github.wkw.share.ui.login.LoginActivity
 import com.github.wkw.share.ui.main.MainActivity
 import com.github.wkw.share.ui.user.info.InformationActivity
@@ -22,4 +23,6 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun provideInformationActivity(): InformationActivity
 
+    @ContributesAndroidInjector
+    abstract fun providerHomeDetailActivity(): HomeDetailActivity
 }

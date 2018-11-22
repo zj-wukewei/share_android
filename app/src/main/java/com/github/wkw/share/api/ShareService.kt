@@ -93,6 +93,15 @@ interface ShareService {
     fun likeFeed(@Path("feedId") feedId: Int): Observable<ShareResponse<Like>>
 
 
+    /***
+     * 首页详情
+     * @author GoGo
+     * @param
+     * @return
+     */
+    @GET("feed/{feedId}")
+    fun feedDetail(@Path("feedId") feedId: Int): Observable<ShareResponse<Feed>>
+
 
 
     /***

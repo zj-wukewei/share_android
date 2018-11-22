@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 open class AppExecutors(
-        private val diskIO: Executor,
+        val diskIO: Executor,
         val networkIO: Scheduler,
         val mainThread: Scheduler
 ) {

@@ -42,6 +42,11 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                 .addItemDsl<Feed> {
                     resId = R.layout.item_home
                     handler(BR.presenter, this@HomeFragment)
+                    handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
+                        override fun onItemClick(item: Feed) {
+                            context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
+                        }
+                    })
                     areContentsTheSame = { oldItem, newItem -> oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount }
                     areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
                 }

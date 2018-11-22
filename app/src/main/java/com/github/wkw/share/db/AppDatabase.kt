@@ -2,6 +2,7 @@ package com.github.wkw.share.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
+import com.github.wkw.share.vo.Feed
 import com.github.wkw.share.vo.Follow
 
 /**
@@ -9,7 +10,9 @@ import com.github.wkw.share.vo.Follow
  * Email zjwkw1992@163.com
  * GitHub https://github.com/zj-wukewei
  */
-@Database(entities = arrayOf(Follow::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(Follow::class, Feed::class), version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun followDao(): FollowDao
+
+    abstract fun feedDao(): FeedDao
 }
