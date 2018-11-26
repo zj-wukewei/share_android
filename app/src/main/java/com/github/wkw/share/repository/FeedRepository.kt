@@ -52,10 +52,7 @@ class FeedRepository @Inject constructor(private val shareService: ShareService,
         val remote = shareService.feedDetail(feedId)
                 .subscribeOn(appExecutors.networkIO)
                 .compose(RepositoryUtils.handleResult())
-                .doOnNext {
-                    Timber.d("remoteremote %s", it.toString())
-                    feedDao.insert(it)
-                }
+                .doOnNext { feedDao.insert(it) }
                 .observeOn(appExecutors.mainThread)
 
 
