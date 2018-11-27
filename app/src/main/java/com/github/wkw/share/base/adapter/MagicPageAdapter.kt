@@ -12,7 +12,7 @@ import com.wkw.magicadapter.BindingViewHolder
 /**
  * @author GoGo on 2018-11-26.
  */
-class MargicPageAdapter<T : Any>(
+class MagicPageAdapter<T : Any>(
         private val layoutId: Int,
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList(),
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList(),
@@ -51,9 +51,10 @@ class MargicPageAdapter<T : Any>(
         }
     }
 
-    class Builder<T : Any> internal constructor(private val layoutId: Int,
-                                                private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList(),
-                                                private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList()) {
+
+    class Builder<T : Any> internal constructor(private val layoutId: Int) {
+        private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList()
+        private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList()
 
         fun itemId(itemId: Int): Builder<T> {
             itemIds.add({ _: T -> itemId } to { i: T -> i })
@@ -65,8 +66,8 @@ class MargicPageAdapter<T : Any>(
             return this
         }
 
-        fun build(): MargicPageAdapter<T> {
-            return MargicPageAdapter(layoutId, itemIds, handlers)
+        fun build(): MagicPageAdapter<T> {
+            return MagicPageAdapter(layoutId, itemIds, handlers)
         }
     }
 }

@@ -11,6 +11,7 @@ import com.github.wkw.share.BR
 import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
+import com.github.wkw.share.base.adapter.MagicPageAdapter
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
 import com.uber.autodispose.autoDisposable
@@ -52,6 +53,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                 }
                 .build()
     }
+
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
