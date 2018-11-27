@@ -16,15 +16,7 @@ class MagicPageAdapter<T : Any>(
         private val layoutId: Int,
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList(),
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList(),
-        diffCallback: DiffUtil.ItemCallback<T> = object : DiffUtil.ItemCallback<T>() {
-
-            override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem == newItem
-
-            override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem == newItem
-        }
-) : PagedListAdapter<T, BindingViewHolder<ViewDataBinding>>(diffCallback) {
+        diffCallback: DiffUtil.ItemCallback<T>) : PagedListAdapter<T, BindingViewHolder<ViewDataBinding>>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, postion: Int): BindingViewHolder<ViewDataBinding> {
         val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(
                 LayoutInflater.from(parent.context),
@@ -52,7 +44,15 @@ class MagicPageAdapter<T : Any>(
     }
 
 
-    class Builder<T : Any> internal constructor(private val layoutId: Int) {
+    class Builder<T : Any> internal constructor(private val layoutId: Int,
+                                                private val diffCallback: DiffUtil.ItemCallback<T> = object : DiffUtil.ItemCallback<T>() {
+
+                                                    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+                                                            oldItem == newItem
+
+                                                    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+                                                            oldItem == newItem
+                                                }) {
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList()
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList()
 
@@ -67,7 +67,7 @@ class MagicPageAdapter<T : Any>(
         }
 
         fun build(): MagicPageAdapter<T> {
-            return MagicPageAdapter(layoutId, itemIds, handlers)
+            return MagicPageAdapter(layoutId, itemIds, handlers, diffCallback)
         }
     }
 }

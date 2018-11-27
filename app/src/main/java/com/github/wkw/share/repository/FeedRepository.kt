@@ -2,7 +2,6 @@ package com.github.wkw.share.repository
 
 import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.api.ShareService
-import com.github.wkw.share.api.reponse.ListDataEntity
 import com.github.wkw.share.api.request.FeedQry
 import com.github.wkw.share.db.FeedDao
 import com.github.wkw.share.vo.Feed
@@ -10,7 +9,6 @@ import com.github.wkw.share.vo.Like
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,10 +23,14 @@ class FeedRepository @Inject constructor(private val shareService: ShareService,
      * @param
      * @return
      */
-    fun feeds(qry: FeedQry): Observable<ListDataEntity<Feed>> {
+    fun feeds(qry: FeedQry): Flowable<List<Feed>> {
         return shareService.feeds(qry)
                 .compose(appExecutors.ioMainScheduler())
                 .compose(RepositoryUtils.handleResult())
+                .flatMap {
+                    Observable.just(it.list)
+                }
+                .toFlowable(BackpressureStrategy.LATEST)
     }
 
     /***

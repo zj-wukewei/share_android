@@ -1,78 +1,58 @@
 package com.github.wkw.share.base.page
 
 import android.arch.lifecycle.MutableLiveData
-import com.github.wkw.share.api.reponse.ListDataEntity
-import com.github.wkw.share.api.request.AbstractQry
+import android.arch.paging.PagedList
 import com.github.wkw.share.utils.ext.subscribeBy
-import com.github.wkw.share.utils.ext.toObservable
 import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.github.wkw.share.vo.Status
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Observable
-import io.reactivex.exceptions.OnErrorNotImplementedException
-import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.Flowable
+import timber.log.Timber
 
-abstract class PageViewModel<Query : AbstractQry, T> : AutoDisposeViewModel() {
+abstract class PageViewModel<T> : AutoDisposeViewModel() {
     val isRefreshing = MutableLiveData<Boolean>()
     val status = MutableLiveData<Status>()
-    val hasMore = MutableLiveData<Boolean>()
+
     val empty = MutableLiveData<Boolean>()
+    val results = MutableLiveData<PagedList<T>>()
 
-    val query = MutableLiveData<Query>()
-    val results = MutableLiveData<List<T>>()
 
-    init {
-        query.toObservable()
-                .compose {
-                    transformer(it)
-                }
-                .autoDisposable(this)
-                .subscribeBy(onNext = { it ->
-                    it?.let {
-                        hasMore.postValue(it.hasMore)
-                        empty.postValue(isRefreshing.value == true && it.list.isEmpty())
-                        if (isRefreshing.value == true) {
-                            results.postValue(it.list)
-                        } else {
-                            val list = results.value?.plus(it.list) ?: it.list
-                            results.postValue(list)
-                        }
+    fun initDataRepository() {
+        Paging
+                .dataSource { pageNumber ->
+                    when (pageNumber) {
+                        1 -> queryFeedDataSourceRefresh()
+                        else -> queryFeedDataSource(pageNumber)
                     }
-                    isRefreshing.postValue(false)
-                }, onError = {
-                    RxJavaPlugins.onError(OnErrorNotImplementedException(it))
-                    status.postValue(Status.ERROR)
-                    isRefreshing.postValue(false)
-                })
+                }
+                .toFlowable()
+                .autoDisposable(this)
+                .subscribeBy {
+                    Timber.d("ccccccccccccccccccccccc")
+                    results.postValue(it)
+                }
     }
 
-    private var pn = 1
+    fun queryFeedDataSourceRefresh() = queryFeedDataSource(1)
+            .doOnSubscribe {
+                this@PageViewModel.isRefreshing.postValue(true)
+                this@PageViewModel.status.postValue(Status.LOADING)
 
-    fun loadMore() {
-        val newQuery = input()
-        newQuery.pageNum = getNextPn()
-        query.postValue(newQuery)
-    }
+            }
+            .doFinally {
+                this@PageViewModel.isRefreshing.postValue(false)
+            }
+            .doOnNext {
+                this.empty.postValue(it.isEmpty())
+            }
 
-    abstract fun transformer(query: Observable<Query>): Observable<ListDataEntity<T>>
+    abstract fun createRemoteDataSource(pageNumber: Int): Flowable<List<T>>
 
-    abstract fun input(): Query
-
-    fun onSwipeRefresh() {
-        val newQuery = input()
-        isRefreshing.value = true
-        newQuery.pageNum = getNextPn()
-        query.postValue(newQuery)
-    }
-
-    private fun getNextPn(): Int {
-        return if (isRefreshing.value == true) {
-            pn = 1
-            pn
-        } else {
-            pn++
-            pn
-        }
-    }
-
+    fun queryFeedDataSource(pageNumber: Int) = createRemoteDataSource(pageNumber)
+            .doOnError {
+                this@PageViewModel.status.postValue(Status.ERROR)
+            }
+            .doOnNext {
+                this@PageViewModel.status.postValue(Status.SUCCESS)
+            }
 }

@@ -27,5 +27,12 @@
             app:visibleGone="@{vm.empty}" />
 
 
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_status_error"
+            android:textSize="18sp"
+            app:visibleGone="@{vm.status == Status.ERROR}" />
+
     </LinearLayout>
 </layout>

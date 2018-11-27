@@ -12,7 +12,6 @@ import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.uber.autodispose.autoDisposable
 import dagger.android.AndroidInjection
-import timber.log.Timber
 import javax.inject.Inject
 
 class HomeDetailActivity : BaseActivity<ActivityFeedDetailBinding>() {
@@ -43,7 +42,9 @@ class HomeDetailActivity : BaseActivity<ActivityFeedDetailBinding>() {
         feedDetailViewModel.feedDetail(feedId)
                 .autoDisposable(mScopeProvider)
                 .subscribeBy(
-                        onNext = { Timber.d("feed %s %s", Thread.currentThread().name, it.toString()) }
+                        onNext = {
+                            mBinding.feed = it
+                        }
                 )
     }
 

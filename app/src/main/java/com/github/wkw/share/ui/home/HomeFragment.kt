@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.github.wkw.share.BR
@@ -15,7 +16,6 @@ import com.github.wkw.share.base.adapter.MagicPageAdapter
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
 import com.uber.autodispose.autoDisposable
-import com.wkw.magicadapter.MagicAdapter
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import timber.log.Timber
@@ -38,19 +38,37 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         }
     }
 
+//    private val mAdapter by lazy {
+//        MagicAdapter.repositoryAdapter()
+//                .addItemDsl<Feed> {
+//                    resId = R.layout.item_home
+//                    handler(BR.presenter, this@HomeFragment)
+//                    handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
+//                        override fun onItemClick(item: Feed) {
+//                            context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
+//                        }
+//                    })
+//                    areContentsTheSame = { oldItem, newItem -> oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount }
+//                    areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
+//                }
+//                .build()
+//    }
+
     private val mAdapter by lazy {
-        MagicAdapter.repositoryAdapter()
-                .addItemDsl<Feed> {
-                    resId = R.layout.item_home
-                    handler(BR.presenter, this@HomeFragment)
-                    handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
-                        override fun onItemClick(item: Feed) {
-                            context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
-                        }
-                    })
-                    areContentsTheSame = { oldItem, newItem -> oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount }
-                    areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
-                }
+        MagicPageAdapter
+                .Builder(R.layout.item_home, diffCallback = object : DiffUtil.ItemCallback<Feed>() {
+                    override fun areItemsTheSame(oldItem: Feed, newItem: Feed): Boolean =
+                            oldItem.id == newItem.id
+
+                    override fun areContentsTheSame(oldItem: Feed, newItem: Feed): Boolean =
+                            oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount
+                })
+                .handler(BR.presenter, this@HomeFragment)
+                .handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
+                    override fun onItemClick(item: Feed) {
+                        context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
+                    }
+                })
                 .build()
     }
 
@@ -67,7 +85,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
     }
 
     override fun loadData() {
-        homeViewModel.onSwipeRefresh()
+        homeViewModel.initDataRepository()
     }
 
 
@@ -84,10 +102,8 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         super.onActivityCreated(savedInstanceState)
         initView()
         homeViewModel.results.observe(this, Observer { it ->
-            it?.let {
-                Timber.d(it.toString())
-                mAdapter.submitList(it)
-            }
+            Timber.d("aaaaaaaaaaaaaaaaaaaa")
+            mAdapter.submitList(it)
         })
     }
 
