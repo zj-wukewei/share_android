@@ -13,7 +13,9 @@ class PageDataSource<T>(private val remoteSourceProvider: (Int) -> Flowable<List
 
     private var pageNumber = 1
 
+
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, T>) {
+        pageNumber = 1
         remoteSourceProvider(pageNumber)
                 .subscribeBy {
                     callback.onResult(it, pageNumber, pageNumber + 1)

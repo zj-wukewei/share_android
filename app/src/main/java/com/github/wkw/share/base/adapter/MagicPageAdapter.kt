@@ -45,14 +45,7 @@ class MagicPageAdapter<T : Any>(
 
 
     class Builder<T : Any> internal constructor(private val layoutId: Int,
-                                                private val diffCallback: DiffUtil.ItemCallback<T> = object : DiffUtil.ItemCallback<T>() {
-
-                                                    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-                                                            oldItem == newItem
-
-                                                    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
-                                                            oldItem == newItem
-                                                }) {
+                                                private val diffCallback: DiffUtil.ItemCallback<T>) {
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList()
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList()
 

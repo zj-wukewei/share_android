@@ -38,22 +38,6 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         }
     }
 
-//    private val mAdapter by lazy {
-//        MagicAdapter.repositoryAdapter()
-//                .addItemDsl<Feed> {
-//                    resId = R.layout.item_home
-//                    handler(BR.presenter, this@HomeFragment)
-//                    handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
-//                        override fun onItemClick(item: Feed) {
-//                            context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
-//                        }
-//                    })
-//                    areContentsTheSame = { oldItem, newItem -> oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount }
-//                    areItemsTheSame = { oldItem, newItem -> newItem.id == oldItem.id }
-//                }
-//                .build()
-//    }
-
     private val mAdapter by lazy {
         MagicPageAdapter
                 .Builder(R.layout.item_home, diffCallback = object : DiffUtil.ItemCallback<Feed>() {
@@ -131,13 +115,6 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                             .sizeResId(R.dimen.home_divider_height)
                             .build()
             )
-            (itemAnimator as DefaultItemAnimator).run {
-                supportsChangeAnimations = false
-                addDuration = 160L
-                moveDuration = 160L
-                changeDuration = 160L
-                removeDuration = 120L
-            }
             layoutManager = LinearLayoutManager(context)
         }
     }

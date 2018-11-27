@@ -3,6 +3,7 @@ package com.github.wkw.share.base.page
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PagedList
 import com.github.wkw.share.utils.ext.subscribeBy
+import com.github.wkw.share.utils.ext.toFlowable
 import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.github.wkw.share.vo.Status
 import com.uber.autodispose.autoDisposable
@@ -24,16 +25,19 @@ abstract class PageViewModel<T> : AutoDisposeViewModel() {
                         1 -> queryFeedDataSourceRefresh()
                         else -> queryFeedDataSource(pageNumber)
                     }
-                }
-                .toFlowable()
+
+                }.toFlowable()
                 .autoDisposable(this)
                 .subscribeBy {
-                    Timber.d("ccccccccccccccccccccccc")
                     results.postValue(it)
                 }
     }
 
-    fun queryFeedDataSourceRefresh() = queryFeedDataSource(1)
+    fun onRefreshEvent() {
+        results.value?.dataSource?.invalidate()
+    }
+
+    private fun queryFeedDataSourceRefresh() = queryFeedDataSource(1)
             .doOnSubscribe {
                 this@PageViewModel.isRefreshing.postValue(true)
                 this@PageViewModel.status.postValue(Status.LOADING)
@@ -48,7 +52,7 @@ abstract class PageViewModel<T> : AutoDisposeViewModel() {
 
     abstract fun createRemoteDataSource(pageNumber: Int): Flowable<List<T>>
 
-    fun queryFeedDataSource(pageNumber: Int) = createRemoteDataSource(pageNumber)
+    private fun queryFeedDataSource(pageNumber: Int) = createRemoteDataSource(pageNumber)
             .doOnError {
                 this@PageViewModel.status.postValue(Status.ERROR)
             }

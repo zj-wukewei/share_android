@@ -14,7 +14,7 @@ import com.github.wkw.share.base.page.PageViewModel
 @BindingAdapter(value = ["onRefresh"])
 fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel<*>?) {
     pageViewModel?.let {
-        v.setOnRefreshListener { it.initDataRepository() }
+        v.setOnRefreshListener { it.onRefreshEvent() }
     }
 }
 
