@@ -86,7 +86,6 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
         super.onActivityCreated(savedInstanceState)
         initView()
         homeViewModel.results.observe(this, Observer { it ->
-            Timber.d("aaaaaaaaaaaaaaaaaaaa")
             mAdapter.submitList(it)
         })
     }

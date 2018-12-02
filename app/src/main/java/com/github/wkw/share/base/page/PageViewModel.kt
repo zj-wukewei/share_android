@@ -22,8 +22,8 @@ abstract class PageViewModel<T> : AutoDisposeViewModel() {
         Paging
                 .dataSource { pageNumber ->
                     when (pageNumber) {
-                        1 -> queryFeedDataSourceRefresh()
-                        else -> queryFeedDataSource(pageNumber)
+                        1 -> queryPageDataSourceRefresh()
+                        else -> queryPageDataSource(pageNumber)
                     }
 
                 }.toFlowable()
@@ -37,7 +37,7 @@ abstract class PageViewModel<T> : AutoDisposeViewModel() {
         results.value?.dataSource?.invalidate()
     }
 
-    private fun queryFeedDataSourceRefresh() = queryFeedDataSource(1)
+    private fun queryPageDataSourceRefresh() = queryPageDataSource(1)
             .doOnSubscribe {
                 this@PageViewModel.isRefreshing.postValue(true)
                 this@PageViewModel.status.postValue(Status.LOADING)
@@ -52,7 +52,7 @@ abstract class PageViewModel<T> : AutoDisposeViewModel() {
 
     abstract fun createRemoteDataSource(pageNumber: Int): Flowable<List<T>>
 
-    private fun queryFeedDataSource(pageNumber: Int) = createRemoteDataSource(pageNumber)
+    private fun queryPageDataSource(pageNumber: Int) = createRemoteDataSource(pageNumber)
             .doOnError {
                 this@PageViewModel.status.postValue(Status.ERROR)
             }
