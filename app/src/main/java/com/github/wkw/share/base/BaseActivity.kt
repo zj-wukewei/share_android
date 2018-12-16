@@ -31,7 +31,9 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val bar = supportActionBar
         if (bar != null) {
-            bar.title = title
+            title?.let {
+                bar.title = title
+            }
             val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
             upArrow?.setColorFilter(getCompatColor(R.color.black), PorterDuff.Mode.SRC_ATOP)
             bar.setHomeAsUpIndicator(upArrow)
@@ -40,6 +42,8 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
             bar.setDisplayShowTitleEnabled(true)
             bar.setHomeButtonEnabled(true)
         }
+        toolbar.setTitleTextColor(getCompatColor(R.color.black))
+
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

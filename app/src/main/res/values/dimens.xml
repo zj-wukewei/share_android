@@ -11,4 +11,6 @@
     <!--informationActivity-->
     <dimen name="item_content_padding">72dp</dimen>
     <dimen name="item_info_padding">16dp</dimen>
+
+    <dimen name="app_bar_height">180dp</dimen>
 </resources>

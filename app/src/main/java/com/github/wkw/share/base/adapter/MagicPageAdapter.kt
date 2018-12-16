@@ -3,6 +3,7 @@ package com.github.wkw.share.base.adapter
 import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.support.annotation.CheckResult
 import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,10 +13,11 @@ import com.wkw.magicadapter.BindingViewHolder
 /**
  * @author GoGo on 2018-11-26.
  */
-class MagicPageAdapter<T : Any>(
+class MagicPageAdapter<T : Any, DB : ViewDataBinding>(
         private val layoutId: Int,
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList(),
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList(),
+        val callback: (T, DB, Int) -> Unit = { _, _, _ -> },
         diffCallback: DiffUtil.ItemCallback<T>) : PagedListAdapter<T, BindingViewHolder<ViewDataBinding>>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, postion: Int): BindingViewHolder<ViewDataBinding> {
         val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(
@@ -41,26 +43,35 @@ class MagicPageAdapter<T : Any>(
             val itemVariable = idGet(data)
             holder.binding.setVariable(itemVariable, setter(data))
         }
+
+        callback(data, holder.binding as DB, postion)
     }
 
 
-    class Builder<T : Any> internal constructor(private val layoutId: Int,
+    class Builder<T : Any, DB : ViewDataBinding> internal constructor(private val layoutId: Int,
                                                 private val diffCallback: DiffUtil.ItemCallback<T>) {
         private val itemIds: ArrayList<Pair<(T) -> Int, (T) -> Any?>> = ArrayList()
         private val handlers: ArrayList<Pair<Int, Any?>> = ArrayList()
+        private var callback: (T, DB, Int) -> Unit = { _, _, _ -> }
 
-        fun itemId(itemId: Int): Builder<T> {
+        fun itemId(itemId: Int): Builder<T, DB> {
             itemIds.add({ _: T -> itemId } to { i: T -> i })
             return this
         }
 
-        fun handler(handlerId: Int, handler: Any): Builder<T> {
+        fun handler(handlerId: Int, handler: Any): Builder<T, DB> {
             handlers.add(handlerId to handler)
             return this
         }
 
-        fun build(): MagicPageAdapter<T> {
-            return MagicPageAdapter(layoutId, itemIds, handlers, diffCallback)
+        fun setCallback(callback: (T, DB, Int) -> Unit = { _, _, _ -> }): Builder<T, DB> {
+            this.callback = callback
+            return this
+
+        }
+
+        fun build(): MagicPageAdapter<T, DB> {
+            return MagicPageAdapter(layoutId, itemIds, handlers, callback,  diffCallback)
         }
     }
 }

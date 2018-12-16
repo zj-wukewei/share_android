@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.DefaultItemAnimator
@@ -13,6 +14,7 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.PageLazyFragment
 import com.github.wkw.share.base.adapter.ItemClickPresenter
 import com.github.wkw.share.base.adapter.MagicPageAdapter
+import com.github.wkw.share.databinding.ItemHomeBinding
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
 import com.uber.autodispose.autoDisposable
@@ -40,7 +42,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
 
     private val mAdapter by lazy {
         MagicPageAdapter
-                .Builder(R.layout.item_home, diffCallback = object : DiffUtil.ItemCallback<Feed>() {
+                .Builder<Feed, ItemHomeBinding>(R.layout.item_home, diffCallback = object : DiffUtil.ItemCallback<Feed>() {
                     override fun areItemsTheSame(oldItem: Feed, newItem: Feed): Boolean =
                             oldItem.id == newItem.id
 
@@ -48,11 +50,17 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                             oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount
                 })
                 .handler(BR.presenter, this@HomeFragment)
-                .handler(BR.onItemClick, object : ItemClickPresenter<Feed> {
-                    override fun onItemClick(item: Feed) {
-                        context?.let { HomeDetailActivity.startActivity(context!!, item.id) }
+                .setCallback { data, binding, _ ->
+                    binding.onItemClick = object : ItemClickPresenter<Feed> {
+                        override fun onItemClick(item: Feed) {
+                            activity?.let {
+                                HomeDetailActivity.startActivity(it, item.id, binding.imgHomeContent)
+
+                            }
+                        }
                     }
-                })
+
+                }
                 .build()
     }
 

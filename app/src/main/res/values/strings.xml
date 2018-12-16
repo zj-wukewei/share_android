@@ -32,7 +32,7 @@
     <string name="community_topic">社区话题</string>
     <string name="post_topic">发布内容</string>
 
-
+    <string name="thumbnail">缩略图</string>
     <!--information-->
     <string name="nickname">昵称</string>
     <string name="sex">性别</string>
@@ -43,6 +43,8 @@
     <string name="female">女</string>
     <string name="unknown">未知</string>
 
+
+    <string name="transition_image">transition_image</string>
 
 
 
