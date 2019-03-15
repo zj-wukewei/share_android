@@ -3,12 +3,10 @@ package com.github.wkw.share.base.page
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PagedList
 import com.github.wkw.share.utils.ext.subscribeBy
-import com.github.wkw.share.utils.ext.toFlowable
 import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.github.wkw.share.vo.Status
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Flowable
-import timber.log.Timber
 
 abstract class PageViewModel<T> : AutoDisposeViewModel() {
     val isRefreshing = MutableLiveData<Boolean>()
