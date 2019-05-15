@@ -1,6 +1,6 @@
 package com.github.wkw.share.ui.user.info
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.github.wkw.share.repository.CategoryRepository
 import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.utils.ext.subscribeBy

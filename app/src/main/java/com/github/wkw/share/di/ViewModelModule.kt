@@ -1,7 +1,7 @@
 package com.github.wkw.share.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.github.wkw.share.ui.follow.FollowViewModel
 import com.github.wkw.share.ui.home.FeedDetailViewModel
 import com.github.wkw.share.ui.home.HomeViewModel

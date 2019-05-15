@@ -1,7 +1,7 @@
 package com.github.wkw.share.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.github.wkw.share.BuildConfig
 import com.github.wkw.share.UserManager

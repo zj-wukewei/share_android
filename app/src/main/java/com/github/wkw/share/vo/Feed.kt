@@ -1,11 +1,11 @@
 package com.github.wkw.share.vo
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.databinding.BaseObservable
-import android.databinding.Bindable
-import com.android.databinding.library.baseAdapters.BR
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 
 @Entity
 data class Feed(@PrimaryKey val id: Int,

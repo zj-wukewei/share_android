@@ -1,9 +1,9 @@
 package com.github.wkw.share.ui.binds
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.content.res.AppCompatResources
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.content.res.AppCompatResources
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -12,7 +12,7 @@ import com.github.wkw.share.R
 import com.github.wkw.share.base.page.PageViewModel
 
 @BindingAdapter(value = ["onRefresh"])
-fun bindOnRefresh(v: SwipeRefreshLayout, pageViewModel: PageViewModel<*>?) {
+fun bindOnRefresh(v: androidx.swiperefreshlayout.widget.SwipeRefreshLayout, pageViewModel: PageViewModel<*>?) {
     pageViewModel?.let {
         v.setOnRefreshListener { it.onRefreshEvent() }
     }

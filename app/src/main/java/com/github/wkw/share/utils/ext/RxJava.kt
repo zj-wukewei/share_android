@@ -1,6 +1,6 @@
 package com.github.wkw.share.utils.ext
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.github.wkw.share.utils.RxJavaToLiveDataConvert.fromObservable
 import com.github.wkw.share.utils.RxJavaToLiveDataConvert.fromObservableResource
 import com.github.wkw.share.vo.Resource

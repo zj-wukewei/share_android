@@ -7,8 +7,8 @@ import com.github.wkw.share.utils.ext.mySharedPreferences
 
 class UserManager constructor(val context: Context) {
 
-    lateinit var token: String
-    lateinit var uId: String
+    var token: String
+    var uId: String
 
     companion object {
         private const val TOKEN: String = "TOKEN"

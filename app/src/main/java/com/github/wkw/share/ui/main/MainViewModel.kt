@@ -1,7 +1,7 @@
 package com.github.wkw.share.ui.main
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.utils.ext.asLiveData
 import com.github.wkw.share.vo.UserInfo

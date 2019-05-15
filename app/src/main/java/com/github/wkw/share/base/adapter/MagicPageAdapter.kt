@@ -1,10 +1,10 @@
 package com.github.wkw.share.base.adapter
 
-import android.arch.paging.PagedListAdapter
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.CheckResult
-import android.support.v7.util.DiffUtil
+import androidx.paging.PagedListAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.CheckResult
+import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wkw.magicadapter.BR

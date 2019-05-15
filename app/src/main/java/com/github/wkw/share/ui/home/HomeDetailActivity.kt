@@ -2,13 +2,13 @@ package com.github.wkw.share.ui.home
 
 import android.app.Activity
 import android.app.ActivityOptions
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity

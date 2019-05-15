@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.github.wkw.share.utils.ToastUtils
 
 inline fun Context.toast(msg: String) = ToastUtils.showToast(this, msg)

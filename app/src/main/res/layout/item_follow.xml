@@ -17,7 +17,7 @@
             type="com.github.wkw.share.base.adapter.ItemClickPresenter" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -37,7 +37,7 @@
             bind:url="@{item.avatar}" />
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -50,7 +50,7 @@
             tools:text="aaaaaaaaa" />
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@{item.followed ? @drawable/ic_ffc107_2_bg : @drawable/ic_ffa000_2_bg}"
@@ -68,6 +68,6 @@
             tools:text="关注" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

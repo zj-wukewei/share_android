@@ -1,6 +1,6 @@
 package com.github.wkw.share.utils
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.github.wkw.share.vo.Resource
 import io.reactivex.Observable
 import io.reactivex.Observer

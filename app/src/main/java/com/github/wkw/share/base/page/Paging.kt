@@ -1,8 +1,8 @@
 package com.github.wkw.share.base.page
 
-import android.arch.paging.DataSource
-import android.arch.paging.PagedList
-import android.arch.paging.RxPagedListBuilder
+import androidx.paging.DataSource
+import androidx.paging.PagedList
+import androidx.paging.RxPagedListBuilder
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 

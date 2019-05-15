@@ -2,7 +2,7 @@ package com.github.wkw.share;
 
 import android.app.Activity
 import android.app.Application
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.github.wkw.share.api.exception.NetworkConnectionException
 import com.github.wkw.share.api.exception.ResponseException
 import com.github.wkw.share.di.DaggerAppComponent

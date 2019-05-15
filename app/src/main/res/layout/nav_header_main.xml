@@ -16,18 +16,21 @@
             type="com.github.wkw.share.vo.UserInfo" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_nav_header"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/nav_header_bg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:paddingLeft="@dimen/nav_header_padding">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_header_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +42,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:text="吴帅气" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_avatar"
                 android:layout_width="@dimen/nav_avatar"
                 android:layout_height="@dimen/nav_avatar"
@@ -51,41 +54,49 @@
                 tools:src="@drawable/ic_default_avatar" />
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_nav_info"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
             android:text="@string/home_page"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_nav_header" />
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_nav_follow"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
             android:onClick="@{(v)->presenter.onClick(v)}"
             android:text="@string/follow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_nav_info" />
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_nav_setting"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
             android:onClick="@{(v)->presenter.onClick(v)}"
             android:text="@string/setting"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_nav_follow" />
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_nav_about"
             style="@style/nav_text"
             android:drawableStart="@drawable/ic_home"
             android:text="@string/about"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_nav_setting" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

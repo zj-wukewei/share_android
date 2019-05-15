@@ -1,7 +1,7 @@
 package com.github.wkw.share.base.page
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PagedList
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.github.wkw.share.vo.Status

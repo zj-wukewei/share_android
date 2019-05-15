@@ -1,7 +1,7 @@
 package com.github.wkw.share.di
 
 import dagger.MapKey
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 
 import kotlin.reflect.KClass
 

@@ -1,7 +1,7 @@
 package com.github.wkw.share.ui.login
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.github.wkw.share.UserManager
 import com.github.wkw.share.api.request.LoginRequest
 import com.github.wkw.share.repository.UserRepository

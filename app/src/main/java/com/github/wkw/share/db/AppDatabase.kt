@@ -1,7 +1,7 @@
 package com.github.wkw.share.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.github.wkw.share.vo.Feed
 import com.github.wkw.share.vo.Follow
 

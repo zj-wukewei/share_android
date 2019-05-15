@@ -1,12 +1,12 @@
 package com.github.wkw.share.ui.follow
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.wkw.share.BR
 import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
@@ -75,7 +75,7 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
                             .sizeResId(R.dimen.home_divider_height)
                             .build()
             )
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         }
         mBinding.swLayout.setOnRefreshListener {
             fetchData()

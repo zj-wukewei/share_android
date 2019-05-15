@@ -1,6 +1,6 @@
 package com.github.wkw.share.db
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.github.wkw.share.vo.Feed
 import com.github.wkw.share.vo.Follow
 import io.reactivex.Maybe

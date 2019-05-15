@@ -1,7 +1,7 @@
 package com.github.wkw.share.base.page
 
 import android.annotation.SuppressLint
-import android.arch.paging.PageKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 import io.reactivex.Flowable
 import io.reactivex.rxkotlin.subscribeBy
 

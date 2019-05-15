@@ -1,14 +1,14 @@
 package com.github.wkw.share.ui.main
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import android.support.v7.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import com.github.wkw.share.R
 import com.github.wkw.share.base.AbstractPagerAdapter
@@ -27,11 +27,11 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInjector, View.OnClickListener {
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
 
-    lateinit var pagerAdapter: FragmentStatePagerAdapter
+    lateinit var pagerAdapter: androidx.fragment.app.FragmentStatePagerAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -54,7 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), HasSupportFragmentInje
     private fun initView() {
         mBinding.presenter = this
         pagerAdapter = object : AbstractPagerAdapter(supportFragmentManager, arrayOf("主页", "热门", "社区")) {
-            override fun getItem(pos: Int): Fragment? {
+            override fun getItem(pos: Int): androidx.fragment.app.Fragment? {
                 when (pos) {
                     0 -> list[pos] = HomeFragment.newInstance(HomeFragment.HOME)
                     1 -> list[pos] = HomeFragment.newInstance(HomeFragment.HOT)
