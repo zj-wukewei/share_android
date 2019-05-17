@@ -17,7 +17,9 @@ import com.github.wkw.share.base.adapter.MagicPageAdapter
 import com.github.wkw.share.databinding.ItemHomeBinding
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.vo.Feed
+import com.github.wkw.share.vo.Follow
 import com.uber.autodispose.autoDisposable
+import com.wkw.magicadapter.MagicAdapter
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import timber.log.Timber
@@ -50,7 +52,7 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                             oldItem.liked == newItem.liked && oldItem.content == newItem.content && oldItem.commentCount == newItem.commentCount
                 })
                 .handler(BR.presenter, this@HomeFragment)
-                .setCallback { data, binding, _ ->
+                .setCallback { _, binding, _ ->
                     binding.onItemClick = object : ItemClickPresenter<Feed> {
                         override fun onItemClick(item: Feed) {
                             activity?.let {
@@ -59,7 +61,6 @@ class HomeFragment : PageLazyFragment(), ItemClickPresenter<Feed> {
                             }
                         }
                     }
-
                 }
                 .build()
     }

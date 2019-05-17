@@ -14,7 +14,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "HOST_API", "\"http://192.168.1.117:8080/\"")
+        buildConfigField("String", "HOST_API", "\"http://192.168.1.105:8080/\"")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -102,9 +102,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersions"
 
     implementation "androidx.paging:paging-runtime:$pagingVersion"
-
-//    implementation 'com.algolia:algoliasearch-android:3.+'
-//    implementation 'com.algolia:instantsearch-android:1.13.0'
 
 
     // alternatively - without Android dependencies for testing

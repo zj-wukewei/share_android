@@ -11,7 +11,9 @@ import com.github.wkw.share.BR
 import com.github.wkw.share.R
 import com.github.wkw.share.base.BaseActivity
 import com.github.wkw.share.base.adapter.ItemClickPresenter
+import com.github.wkw.share.base.adapter.MagicPageAdapter
 import com.github.wkw.share.databinding.ActivityListBinding
+import com.github.wkw.share.databinding.ItemFollowBinding
 import com.github.wkw.share.utils.ext.subscribeBy
 import com.github.wkw.share.utils.extraDelegate
 import com.github.wkw.share.vo.Follow
@@ -38,9 +40,11 @@ class FollowActivity : BaseActivity<ActivityListBinding>(), ItemClickPresenter<F
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var followViewModel: FollowViewModel
 
+
+
     private val mAdapter by lazy {
         MagicAdapter.repositoryAdapter()
-                .addItemDsl<Follow> {
+                .addItemDsl<Follow, ItemFollowBinding> {
                     resId = R.layout.item_follow
                     handler(BR.presenter, this@FollowActivity)
                     areContentsTheSame = { oldItem, newItem -> oldItem.avatar == newItem.avatar && oldItem.nickname == newItem.nickname && oldItem.followed == newItem.followed }

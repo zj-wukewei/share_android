@@ -20,11 +20,15 @@ import javax.inject.Inject
  */
 
 class ShareApplication : MultiDexApplication(), HasActivityInjector {
+
+
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
+        INSTANCE = this;
         DaggerAppComponent.builder()
                 .application(this)
                 .build()
@@ -47,4 +51,8 @@ class ShareApplication : MultiDexApplication(), HasActivityInjector {
 
 
     override fun activityInjector() = dispatchingAndroidInjector
+
+    companion object {
+        lateinit var INSTANCE: ShareApplication
+    }
 }

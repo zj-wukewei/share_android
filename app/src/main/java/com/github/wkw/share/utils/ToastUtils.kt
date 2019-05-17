@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import com.github.wkw.share.ShareApplication
 
 /**
  * Created by GoGo on 2018/11/19.
@@ -22,5 +23,9 @@ object ToastUtils {
         } else {
             sMainHandler.post { Toast.makeText(context, msg, Toast.LENGTH_SHORT).show() }
         }
+    }
+
+    fun showToast(msg: String) {
+        showToast(ShareApplication.INSTANCE, msg)
     }
 }
