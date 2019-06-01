@@ -1,7 +1,8 @@
 package com.github.wkw.share.utils
 
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import kotlin.reflect.KProperty
 
 class ExtrasDelegate<out T>(private val extraName: String, private val defaultValue: T) {
@@ -30,3 +31,5 @@ private fun <T> getExtra(oldExtra: T?, extraName: String, thisRef: AppCompatActi
 @Suppress("UNCHECKED_CAST")
 private fun <T> getExtra(oldExtra: T?, extraName: String, thisRef: androidx.fragment.app.Fragment): T? =
         oldExtra ?: thisRef.arguments?.get(extraName) as T?
+
+

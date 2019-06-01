@@ -51,10 +51,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="@color/white"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:gravity="center">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="85dp"
@@ -77,7 +77,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     style="@style/item_information_et"
-                    android:text="@{userInfo.nickname}"
+                    android:text="@={userInfo.nickname}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_info_nickname"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -102,19 +102,8 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/v_info_sex" />
 
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_info_gender"
-                    style="@style/item_information_et"
-                    android:text="@{utils.transformGender(tvInfoGender, userInfo.gender)}"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_info_sex"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/v_info_sex"
-                    app:layout_constraintTop_toTopOf="@id/tv_info_sex"
-                    tools:text="1111111111" />
-
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_sex_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/item_info_padding"
@@ -122,6 +111,19 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_info_sex"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_info_sex" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_info_gender"
+                    style="@style/item_information_et"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/item_info_arrow_right"
+                    android:text="@{utils.transformGender(tvInfoGender, userInfo.gender)}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_info_sex"
+                    app:layout_constraintRight_toLeftOf="@id/img_sex_arrow"
+                    app:layout_constraintTop_toBottomOf="@id/v_info_sex"
+                    app:layout_constraintTop_toTopOf="@id/tv_info_sex"
+                    tools:text="1111111111" />
 
 
                 <View
@@ -142,15 +144,8 @@
                     app:layout_constraintTop_toBottomOf="@id/v_info_pet" />
 
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/item_information_et"
-                    android:text="@{utils.transformCategory(userInfo.categoryId, categoryList)}"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_info_pet"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/v_info_pet" />
-
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_pet_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/item_info_padding"
@@ -158,6 +153,18 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_info_pet"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_info_pet" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/item_information_et"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/item_info_arrow_right"
+                    android:text="@{utils.transformCategory(userInfo.categoryId, categoryList)}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_info_pet"
+                    app:layout_constraintRight_toLeftOf="@id/img_pet_arrow"
+                    app:layout_constraintTop_toTopOf="@id/tv_info_pet"
+                    tools:text="猫" />
+
 
                 <View
                     android:id="@+id/v_info_introduce"
@@ -178,7 +185,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     style="@style/item_information_et"
-                    android:text="@{userInfo.bio}"
+                    android:text="@={userInfo.bio}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_info_website"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

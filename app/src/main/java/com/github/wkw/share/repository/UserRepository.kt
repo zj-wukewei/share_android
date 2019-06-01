@@ -4,6 +4,7 @@ import com.github.wkw.share.AppExecutors
 import com.github.wkw.share.api.ShareService
 import com.github.wkw.share.api.reponse.UserEntity
 import com.github.wkw.share.api.request.LoginRequest
+import com.github.wkw.share.api.request.transformUserInfo
 import com.github.wkw.share.db.FollowDao
 import com.github.wkw.share.vo.Follow
 import com.github.wkw.share.vo.UserInfo
@@ -95,5 +96,11 @@ class UserRepository @Inject constructor(private val shareService: ShareService,
                 .compose(RepositoryUtils.handleResult())
                 .doOnNext { it -> if (!it) followDao.delete(item) }
                 .compose(appExecutors.ioMainScheduler())
+    }
+
+    fun updateInfo(userInfo: UserInfo): Observable<Nothing> {
+        return shareService.postUserInfo(transformUserInfo(userInfo))
+                .compose(appExecutors.ioMainScheduler())
+                .compose(RepositoryUtils.handleResult())
     }
 }

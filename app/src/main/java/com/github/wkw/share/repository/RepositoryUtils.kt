@@ -12,7 +12,7 @@ class RepositoryUtils {
         private val DEFAULT_ERROR_MSG = "Unknown error"
         private val SUCCESS_CODE = 0
         fun <T> handleResult(): ObservableTransformer<ShareResponse<T>, T> {
-            return ObservableTransformer {
+            return ObservableTransformer { it ->
                 it.flatMap {
                     when (SUCCESS_CODE) {
                         it.code -> createData(it.data)
@@ -23,13 +23,15 @@ class RepositoryUtils {
         }
 
 
-        private fun <T> createData(t: T): Observable<T> {
-            return Observable.create {
+        private fun <T> createData(t: T?): Observable<T> {
+            return Observable.create { observable ->
                 try {
-                    it.onNext(t)
-                    it.onComplete()
+                    t?.let {
+                        observable.onNext(t!!)
+                    }
+                    observable.onComplete()
                 } catch (e: Exception) {
-                    it.onError(e)
+                    observable.onError(e)
                 }
             }
         }

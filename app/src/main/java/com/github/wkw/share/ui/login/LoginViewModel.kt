@@ -8,6 +8,7 @@ import com.github.wkw.share.repository.UserRepository
 import com.github.wkw.share.utils.ToastUtils
 import com.github.wkw.share.utils.encode
 import com.github.wkw.share.utils.ext.subscribeBy
+import com.github.wkw.share.utils.toast
 import com.github.wkw.share.viewmodel.AutoDisposeViewModel
 import com.uber.autodispose.autoDisposable
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
         val mobileString = mobile.value
         val passwordString = password.value
         if (mobileString.isNullOrEmpty() || passwordString.isNullOrEmpty()) {
-            ToastUtils.showToast("username or password can't be null.")
+            toast { "username or password can't be null." }
             return
         }
         userRepository.login(LoginRequest(mobile = mobile.value, password = encode(password.value)))

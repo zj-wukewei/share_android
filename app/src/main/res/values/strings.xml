@@ -42,7 +42,7 @@
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="unknown">未知</string>
-
+    <string name="update_info_success">更新资料成功</string>
 
     <string name="transition_image">transition_image</string>
 

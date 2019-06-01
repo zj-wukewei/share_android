@@ -29,3 +29,7 @@ object ToastUtils {
         showToast(ShareApplication.INSTANCE, msg)
     }
 }
+
+
+inline fun toast(value: () -> String): Unit =
+        ToastUtils.showToast(value())

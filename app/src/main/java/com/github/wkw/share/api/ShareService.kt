@@ -41,7 +41,7 @@ interface ShareService {
      * @return
      */
     @POST("user/info")
-    fun postUserInfo(@Body userInfo: UserInfoRequest): Observable<ShareResponse<Void>>
+    fun postUserInfo(@Body userInfo: UserInfoRequest): Observable<ShareResponse<Nothing>>
 
     /***
      *  我关注的人
@@ -112,4 +112,6 @@ interface ShareService {
      */
     @GET("category/list")
     fun categoryList(): Observable<ShareResponse<List<Category>>>
+
+
 }
